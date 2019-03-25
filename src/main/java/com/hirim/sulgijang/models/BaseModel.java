@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 
 @Data
 public class BaseModel {
-    private long createdBy;
-    private long updatedBy;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    protected long createdBy;
+    protected long updatedBy;
+    protected Timestamp createdAt;
+    protected Timestamp updatedAt;
 }
