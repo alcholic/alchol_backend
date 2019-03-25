@@ -1,13 +1,17 @@
-spring:
-  profiles:
-    active: local # 기본 환경 선택
+#spring:
+#  profiles:
+#    active: local # 기본 환경 선택
 
 # local 환경
 ---
-spring:
-  profiles: local
-  datasource:
-    master:
-      driver-class-name: "com.mysql.jdbc.Driver"
-      url: "jdbc:mysql://127.0.0.1:8080"
+#spring:
+#  profiles: local
+#  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://suldiary.c4fqjnt58fk1.ap-northeast-2.rds.amazonaws.com:3306/sul_diary
+#    username: highrima
+
+
+
+
 
