@@ -1,6 +1,6 @@
 package com.hirim.sulgijang.controllers;
 
-import com.hirim.sulgijang.common.LoginService;
+import com.hirim.sulgijang.common.utils.UserSessionUtils;
 import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.repositories.UserMapper;
@@ -20,7 +20,7 @@ public class HomeController {
     @GetMapping("test")
     @ResponseBody
     public CommonResponse test(HttpServletRequest request) {
-        User user = LoginService.UserBySession(request);
+        User user = UserSessionUtils.UserBySession(request);
         return CommonResponse.successObject(new User(userMapper.test(), "asd"));
     }
 

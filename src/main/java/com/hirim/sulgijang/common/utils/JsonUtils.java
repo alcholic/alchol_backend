@@ -1,4 +1,4 @@
-package com.hirim.sulgijang.utils;
+package com.hirim.sulgijang.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;

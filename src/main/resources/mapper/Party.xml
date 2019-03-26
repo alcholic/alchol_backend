@@ -3,8 +3,13 @@
 
 <mapper namespace="com.hirim.sulgijang.repositories.PartyMapper">
 
-    <select id="insertParty">
+    <insert id="insertParty">
         INSERT INTO party(party_name, created_by, created_at)
         VALUES (#{partyName}, #{createdBy}, SYSDATE())
-    </select>
+    </insert>
+
+    <insert id="insertPartyMember">
+        INSERT INTO party_members(party_id, user_id)
+        VALUES (#{partyId}, #{userId})
+    </insert>
 </mapper>

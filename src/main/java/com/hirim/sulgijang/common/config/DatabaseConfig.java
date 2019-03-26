@@ -1,4 +1,4 @@
-package com.hirim.sulgijang.common;
+package com.hirim.sulgijang.common.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.dbcp2.BasicDataSource;

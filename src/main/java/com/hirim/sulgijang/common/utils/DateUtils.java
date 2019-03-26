@@ -1,4 +1,4 @@
-package com.hirim.sulgijang.utils;
+package com.hirim.sulgijang.common.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

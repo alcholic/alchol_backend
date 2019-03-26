@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PartyMapper {
     void insertParty(Party party);
+    void insertPartyMember(long partyId, long userId);
 }

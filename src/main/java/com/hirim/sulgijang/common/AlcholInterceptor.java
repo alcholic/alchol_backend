@@ -2,7 +2,7 @@ package com.hirim.sulgijang.common;
 
 
 import com.hirim.sulgijang.models.User;
-import com.hirim.sulgijang.utils.JsonUtils;
+import com.hirim.sulgijang.common.utils.JsonUtils;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
