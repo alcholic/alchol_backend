@@ -1,6 +1,10 @@
 package com.hirim.sulgijang.common;
 
+
 import com.hirim.sulgijang.models.User;
+import com.hirim.sulgijang.utils.JsonUtils;
+
+import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -8,17 +12,20 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Interceptor extends HandlerInterceptorAdapter {
+public class AlcholInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Auth auth = ((HandlerMethod) handler).getMethodAnnotation(Auth.class);
         if(auth != null) {
-            if(request.getSession().getAttribute("user") == null) {
-                response.sendRedirect("/login");
-                return false;
-            }
+            final String user = request.getHeader("user");
+            if (StringUtils.isEmpty(user))
+                throw new AlcholException("잘못된 유저 입니다.");
+
+            final User userObject = JsonUtils.jsonToPojo(user, User.class);
+            request.setAttribute("user", userObject);
         }
+
         return super.preHandle(request, response, handler);
     }
 
