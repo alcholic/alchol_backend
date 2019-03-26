@@ -1,17 +1,14 @@
 package com.hirim.sulgijang.controllers;
 
-import com.google.common.collect.ImmutableList;
 import com.hirim.sulgijang.models.Party;
 import com.hirim.sulgijang.models.PartyMember;
 import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.services.PartyService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RestController
 public class PartyController {
@@ -31,7 +28,6 @@ public class PartyController {
 
     @PostMapping("/member")
     public void savePartyMember(@RequestBody PartyMember partyMember) {
-        System.out.println("dd");
         partyService.insertPartyMember(partyMember.getPartyId(), partyMember.getUserList());
     }
 }
