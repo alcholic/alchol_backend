@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hirim.sulgijang.repositories.PartyMapper">
+<mapper namespace="com.hirim.sulgijang.repositories.PartyRepository">
 
     <insert id="insertParty" keyProperty="partyId" useGeneratedKeys="true">
         INSERT INTO party(party_name, created_by, created_at)
@@ -12,4 +12,27 @@
         INSERT INTO party_members(party_id, user_id)
         VALUES (#{partyId}, #{userId})
     </insert>
+
+    <select id="selectPartyList" resultType="java.util.List">
+      SELECT *
+      FROM party p
+      INNER JOIN party_member pm ON p.party_id = pm.party_id
+      WHERE user_id = #{userId}
+    </select>
+
+    <select id="selectParty" resultType="com.hirim.sulgijang.models.Party">
+        SELECT
+          party_id AS partyId,
+          party_name AS partyName,
+          created_by AS createdBy,
+          created_at AS createdAt
+        FROM party
+        WHERE 1 = 1
+        <if test="partyId != null">
+            AND party_id = #{partyId}
+        </if>
+        <if test="partyName != null">
+            AND party_name = #{partyName}
+        </if>
+    </select>
 </mapper>

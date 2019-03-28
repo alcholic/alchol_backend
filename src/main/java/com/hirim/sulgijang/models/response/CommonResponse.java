@@ -13,6 +13,10 @@ public class CommonResponse {
     private String message;
     private Object data;
 
+    public CommonResponse(int status) {
+        this.status = status;
+    }
+
     public CommonResponse(int status, String message) {
         this.status = status;
         this.message = message;
@@ -20,6 +24,10 @@ public class CommonResponse {
 
     public static CommonResponse fail(String message) {
         return new CommonResponse(ResultStatus.FAIL.getValue(), message);
+    }
+
+    public static CommonResponse success() {
+        return new CommonResponse(ResultStatus.SUCCESS.getValue());
     }
 
     public static CommonResponse success(String message) {

@@ -12,6 +12,10 @@ public class PartyMember extends BaseModel {
     private List<User> userList;
     private long partyId;
 
+    public PartyMember(List<User> usreList) {
+        this.userList = userList;
+    }
+
     public PartyMember(List<User> userList, long partyId) {
         this.userList = userList;
         this.partyId = partyId;

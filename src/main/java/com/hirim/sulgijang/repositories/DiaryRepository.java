@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-public interface UserMapper {
-    long test();
+public interface DiaryRepository {
+
 }
