@@ -20,7 +20,7 @@ public class PartyController {
     }
 
     //@PostMapping("/group.api")
-    @PostMapping("/group")
+    @PostMapping("/party")
     public void saveParty(HttpSession session, @RequestBody Party party) {
         User user = (User) session.getAttribute("user");
         partyService.insert(new Party(party.getPartyName(), 0L));
