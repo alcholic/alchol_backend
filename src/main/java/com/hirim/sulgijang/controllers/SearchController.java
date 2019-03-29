@@ -17,6 +17,7 @@ public class SearchController {
     @GetMapping("/party")
     @ResponseBody
     public Party searchParty(@RequestParam(required = false) String partyName, @RequestParam(required = false, defaultValue= "0") long partyId) {
+        System.out.println(partyName);
         return partyService.selectParty(partyId, partyName);
     }
 }
