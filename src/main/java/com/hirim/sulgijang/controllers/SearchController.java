@@ -2,11 +2,10 @@ package com.hirim.sulgijang.controllers;
 
 import com.hirim.sulgijang.models.Party;
 import com.hirim.sulgijang.services.PartyService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("search")
 public class SearchController {
 
     private final PartyService partyService;
@@ -15,9 +14,9 @@ public class SearchController {
         this.partyService = partyService;
     }
 
-    @PostMapping("search/party")
+    @GetMapping("/party")
     @ResponseBody
-    public Party searchParty(Party party) {
-        return partyService.selectParty(party);
+    public Party searchParty(@RequestParam(required = false) String partyName, @RequestParam(required = false, defaultValue= "0") long partyId) {
+        return partyService.selectParty(partyId, partyName);
     }
 }

@@ -26,16 +26,11 @@ public class PartyService {
         for(User user : userList) partyRepository.insertPartyMember(partyId, user.getUserId());
     }
 
-    public List<Party> selectPartyByUser(PartyMember partyMember) {
-        return partyRepository.selectPartyList(partyMember);
+    public List<Party> selectPartyByUser(long userId) {
+        return partyRepository.selectPartyList(userId);
     }
 
-    public Party selectParty(Party party) {
-        System.out.println(party.getPartyId());
-
-        Party party1 = partyRepository.selectParty(party);
-
-        System.out.println(party1.toString());
-        return party1;
+    public Party selectParty(long partyId, String partyName) {
+        return partyRepository.selectParty(partyId, partyName);
     }
 }

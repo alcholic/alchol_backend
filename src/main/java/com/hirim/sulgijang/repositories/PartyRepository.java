@@ -13,6 +13,6 @@ import java.util.List;
 public interface PartyRepository {
     void insertParty(Party party);
     void insertPartyMember(@Param("partyId") long partyId, @Param("userId") long userId);
-    List<Party> selectPartyList(PartyMember partyMember);
-    Party selectParty(Party party);
+    List<Party> selectPartyList(long userId);
+    Party selectParty(@Param("partyId") long partyId, @Param("partyName") String partyName);
 }

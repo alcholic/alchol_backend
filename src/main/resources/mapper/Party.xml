@@ -3,6 +3,13 @@
 
 <mapper namespace="com.hirim.sulgijang.repositories.PartyRepository">
 
+    <sql id="select-party-clouse">
+          p.party_id AS partyId,
+          p.party_name AS partyName,
+          p.created_by AS createdBy,
+          p.created_at AS createdAt
+    </sql>
+
     <insert id="insertParty" keyProperty="partyId" useGeneratedKeys="true">
         INSERT INTO party(party_name, created_by, created_at)
         VALUES (#{partyName}, #{createdBy}, SYSDATE())
@@ -14,25 +21,26 @@
     </insert>
 
     <select id="selectPartyList" resultType="java.util.List">
-      SELECT *
+      SELECT
+        <include refid="select-party-clouse"/>
       FROM party p
-      INNER JOIN party_member pm ON p.party_id = pm.party_id
+      INNER JOIN party_members pm ON p.party_id = pm.party_id
       WHERE user_id = #{userId}
     </select>
 
     <select id="selectParty" resultType="com.hirim.sulgijang.models.Party">
         SELECT
-          party_id AS partyId,
-          party_name AS partyName,
-          created_by AS createdBy,
-          created_at AS createdAt
-        FROM party
+            p.party_id AS partyId,
+            p.party_name AS partyName,
+            p.created_by AS createdBy,
+            p.created_at AS createdAt
+        FROM party p
         WHERE 1 = 1
-        <if test="partyId != null">
-            AND party_id = #{partyId}
+        <if test="partyId > 0">
+            AND p.party_id = #{partyId}
         </if>
         <if test="partyName != null">
-            AND party_name = #{partyName}
+            AND p.party_name = #{partyName}
         </if>
     </select>
 </mapper>
