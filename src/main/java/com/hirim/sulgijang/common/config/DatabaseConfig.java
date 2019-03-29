@@ -1,15 +1,12 @@
 package com.hirim.sulgijang.common.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -59,7 +56,7 @@ public class DatabaseConfig {
         sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources(mapperLocation));
 
 
-        Configuration configuration = new Configuration();
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
         sqlSessionFactoryBean.setConfiguration(configuration);
 
