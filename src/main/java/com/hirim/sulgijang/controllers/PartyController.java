@@ -46,4 +46,10 @@ public class PartyController {
         User user = UserSessionUtils.UserBySession(request);
         return partyService.selectPartyByUser(1L);
     }
+
+    @GetMapping("/member/list")
+    @ApiOperation(value = "모임별 유저 리스트")
+    public List<User> showUserList(@RequestParam long partyId) {
+        return partyService.selectUserListByParty(partyId);
+    }
 }
