@@ -20,7 +20,7 @@
         VALUES (#{partyId}, #{userId})
     </insert>
 
-    <select id="selectPartyList" resultType="java.util.List">
+    <select id="selectPartyList" resultType="Party">
       SELECT
         <include refid="select-party-clouse"/>
       FROM party p
@@ -28,12 +28,8 @@
       WHERE user_id = #{userId}
     </select>
 
-    <select id="selectParty" resultType="com.hirim.sulgijang.models.Party">
-        SELECT
-            p.party_id AS partyId,
-            p.party_name AS partyName,
-            p.created_by AS createdBy,
-            p.created_at AS createdAt
+    <select id="selectParty" resultType="Party">
+        SELECT *
         FROM party p
         WHERE 1 = 1
         <if test="partyId > 0">
