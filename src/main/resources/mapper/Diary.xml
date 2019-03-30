@@ -9,8 +9,8 @@
     </insert>
 
     <insert id="insertDiaryContent" keyProperty="diaryContentId" useGeneratedKeys="true">
-        INSERT INTO diary(diary_id, place_id, summary, snack, depth, created_by, created_at)
-        VALUES (#{diary_id}, #{place_id}, #{summary}, #{snack}, #{depth}, #{createdBy}, SYSDATE())
+        INSERT INTO diary_content(diary_id, place_id, summary, snack, depth, created_by, created_at)
+        VALUES (#{diaryId}, #{placeId}, #{summary}, #{snack}, #{depth}, #{createdBy}, SYSDATE())
     </insert>
 
     <select id="selectDiaryList" resultType="Diary">
@@ -34,8 +34,7 @@
     <select id="selectDiaryContentList" resultType="DiaryContent">
         SELECT *
         FROM diary_content
-        WHERE diary_id = 3
-        /*WHERE diary_id = #{diaryId}*/
+        WHERE diary_id = #{diaryId}
     </select>
 
 </mapper>

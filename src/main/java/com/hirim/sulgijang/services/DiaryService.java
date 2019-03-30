@@ -21,11 +21,8 @@ public class DiaryService {
 
     @Transactional
     public void insertDiaryContent(DiaryContent diaryContent) {
-        /*List<DiaryContent> diaryContentList = diaryRepository.selectDiaryContentList(diaryContent.getDiaryId());
-        long lastDepth = Optional.ofNullable(diaryContentList.stream().count()).orElse((long) 0);*/
 
-        //long lastDepth = diaryRepository.selectDiaryContentList(diaryContent.getDiaryId()).stream().count();
-        long lastDepth = diaryRepository.selectDiaryContentList(3).stream().count();
+        long lastDepth = diaryRepository.selectDiaryContentList(diaryContent.getDiaryId()).stream().count();
 
         diaryContent.setDepth(lastDepth+1);
 
