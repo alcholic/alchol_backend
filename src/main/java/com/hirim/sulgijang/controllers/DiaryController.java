@@ -1,6 +1,7 @@
 package com.hirim.sulgijang.controllers;
 
 import com.hirim.sulgijang.models.Diary;
+import com.hirim.sulgijang.models.DiaryContent;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.services.DiaryService;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,13 @@ public class DiaryController {
     @ApiOperation(value = "다이어리 저장")
     public CommonResponse saveDiary(@RequestBody Diary diary){
         diaryService.insertDiary(diary);
+        return CommonResponse.success();
+    }
+
+    @PostMapping("/content/save")
+    @ApiOperation(value = "다이어리 내용 저장")
+    public CommonResponse saveDiaryContent(@RequestBody DiaryContent diaryContent) {
+        diaryService.insertDiaryContent(diaryContent);
         return CommonResponse.success();
     }
 

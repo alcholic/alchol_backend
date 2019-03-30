@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 public class Diary extends BaseModel{
     private long diaryId;
     private long partyId;
