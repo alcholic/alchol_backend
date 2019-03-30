@@ -8,10 +8,8 @@ import java.util.List;
 @Data
 public class Diary extends BaseModel{
     private long diaryId;
-    private long groupId;
+    private long partyId;
     private String diaryName;
-    private String snack;
     private Timestamp meetingDate;
-    private int level;
-    private List<Drink> drinkList;
+    private long loser;
 }
