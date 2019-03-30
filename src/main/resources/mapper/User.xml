@@ -5,4 +5,40 @@
     <select id="test" resultType="long">
         SELECT COUNT(*) FROM DUAL;
     </select>
+
+    <select id="select" resultType="com.hirim.sulgijang.models.User">
+        SELECT *
+        FROM user
+        WHERE sns_id = #{snsId} AND sns_type = #{snsType}
+    </select>
+
+    <select id="selectInfo" resultType="com.hirim.sulgijang.models.UserInfo">
+        SELECT *
+        FROM user_info
+        WHERE user_id = #{userId}
+    </select>
+
+
+    <insert id="add" keyProperty="userId" useGeneratedKeys="true">
+        INSERT INTO user(email, user_name, sns_id, sns_type, created_at, updated_at)
+        VALUES (#{email}, #{userName}, #{snsType}, #{snsType}, now(), now())
+    </insert>
+
+    <insert id="addInfo">
+        INSERT INTO user_info(user_id, deviceId, access_token, device_type, app_version, created_at, updated_at)
+        VALUES(#{userId}, #{deviceId}, #{accessToken}, #{deviceType}, #{appVersion}, NOW(), NOW())
+    </insert>
+
+    <update id="updatePushToken">
+        UPDATE user_info
+        SET push_token = #{pushToken}, updated_at = NOW()
+        WHERE
+          user_id = #{userId}
+    </update>
+
+    <delete id="deleteInfo">
+        DELETE
+        FROM user_info
+        WHERE user_id = #{userId}
+    </delete>
 </mapper>

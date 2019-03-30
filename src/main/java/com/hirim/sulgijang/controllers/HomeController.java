@@ -20,8 +20,9 @@ public class HomeController {
     @GetMapping("test")
     @ResponseBody
     public CommonResponse test(HttpServletRequest request) {
-        User user = UserSessionUtils.UserBySession(request);
-        return CommonResponse.successObject(new User(userRepository.test(), "asd"));
+//        User user = UserSessionUtils.UserBySession(request);
+//        return CommonResponse.successObject(new User(userRepository.test(), "asd"));
+        return CommonResponse.success();
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

@@ -1,4 +1,4 @@
-package com.hirim.sulgijang.models;
+package com.hirim.sulgijang.models.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User extends BaseModel{
+public class LoginResponse {
     private long userId;
-    private String userName;
-    private String snsType;
-    private String snsId;
-    private String email;
+    private String token;
 }

@@ -1,9 +1,12 @@
 package com.hirim.sulgijang.common;
 
 
+import com.google.common.base.Strings;
 import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.common.utils.JsonUtils;
 
+import com.hirim.sulgijang.models.UserAgent;
+import com.hirim.sulgijang.models.UserInfo;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
@@ -18,6 +21,7 @@ public class AlcholInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        setAgent(request);
         Auth auth = ((HandlerMethod) handler).getMethodAnnotation(Auth.class);
         if(auth != null) {
             final String user = request.getHeader("user");
@@ -29,6 +33,15 @@ public class AlcholInterceptor extends HandlerInterceptorAdapter {
         }
 
         return super.preHandle(request, response, handler);
+    }
+
+    private void setAgent(HttpServletRequest request) {
+        final String headerAgent = request.getHeader("agent");
+        if(!Strings.isNullOrEmpty(headerAgent)) {
+            final UserAgent userAgent = JsonUtils.jsonToPojo(headerAgent, UserAgent.class);
+            final String accessToken = request.getHeader("accessToken");
+            request.setAttribute(UserSessionHelper.USER_INFO_SESSION, new UserInfo(userAgent, accessToken));
+        }
     }
 
     @Override
