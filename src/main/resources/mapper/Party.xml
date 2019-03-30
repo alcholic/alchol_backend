@@ -9,7 +9,7 @@
     </insert>
 
     <insert id="insertPartyMember">
-        INSERT INTO party_members(party_id, user_id)
+        INSERT INTO party_member(party_id, user_id)
         VALUES (#{partyId}, #{userId})
     </insert>
 
@@ -28,13 +28,13 @@
     <select id="selectPartyList" resultType="Party">
       SELECT *
       FROM party p
-      INNER JOIN party_members pm ON p.party_id = pm.party_id
+      INNER JOIN party_member pm ON p.party_id = pm.party_id
       WHERE user_id = #{userId}
     </select>
 
     <select id="selectUserList" resultType="User">
         SELECT *
-        FROM party_members pm
+        FROM party_member pm
         INNER JOIN user u ON u.user_id = pm.user_id
         WHERE pm.party_id = #{partyId}
     </select>

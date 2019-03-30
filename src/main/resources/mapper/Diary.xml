@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hirim.sulgijang.repositories.DiaryRepository">
+
+    <insert id="insertDiary" keyProperty="diaryId" useGeneratedKeys="true">
+        INSERT INTO diary(diary_name, meeting_date, created_by, created_at)
+        VALUES (#{diaryName}, #{meetingDate}, #{createdBy}, SYSDATE())
+    </insert>
+
+    <select id="selectDiaryList" resultType="Diary">
+        SELECT *
+        FROM diary
+        WHERE party_id = #{partyId}
+    </select>
+
+    <select id="selectDiary" resultType="Diary">
+        SELECT *
+        FROM diary
+        WHERE 1 = 1
+        <if test="diaryId > 0">
+            AND diary_id = #{diaryId}
+        </if>
+        <if test="diaryName != null">
+            AND diary_name = #{diaryName}
+        </if>
+    </select>
+
+</mapper>

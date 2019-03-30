@@ -25,7 +25,7 @@ public class PartyController {
     //@PostMapping("/party.api")
     @PostMapping("/save")
     @ApiOperation(value="모임 추가", notes="필수 : 모임명, 모임을 생성하는 유저ID")
-    public CommonResponse saveParty(HttpSession session, @RequestBody Party party) {
+    public CommonResponse saveParty(HttpServletRequest session, @RequestBody Party party) {
         User user = (User) session.getAttribute("user");
         partyService.insert(new Party(party.getPartyName(), 1L)); // user.getUserId()
 
@@ -42,14 +42,14 @@ public class PartyController {
 
     @GetMapping("/list")
     @ApiOperation(value="유저의 모임 리스트")
-    public List<Party> showParty(HttpServletRequest request) {
+    public List<Party> searchParty(HttpServletRequest request) {
         User user = UserSessionUtils.UserBySession(request);
         return partyService.selectPartyByUser(1L);
     }
 
     @GetMapping("/member/list")
     @ApiOperation(value = "모임별 유저 리스트")
-    public List<User> showUserList(@RequestParam long partyId) {
+    public List<User> searchUserList(@RequestParam long partyId) {
         return partyService.selectUserListByParty(partyId);
     }
 }
