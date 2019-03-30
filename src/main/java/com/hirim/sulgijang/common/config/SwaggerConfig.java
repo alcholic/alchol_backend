@@ -9,7 +9,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.sql.Timestamp;
-import java.time.ZonedDateTime;
 
 @Configuration
 @EnableSwagger2

@@ -1,7 +1,6 @@
 package com.hirim.sulgijang.repositories;
 
 import com.hirim.sulgijang.models.Party;
-import com.hirim.sulgijang.models.PartyMember;
 import com.hirim.sulgijang.models.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

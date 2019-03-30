@@ -1,7 +1,5 @@
 package com.hirim.sulgijang.controllers;
 
-import com.hirim.sulgijang.common.utils.UserSessionUtils;
-import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;

@@ -1,15 +1,11 @@
 package com.hirim.sulgijang.services;
 
-import com.hirim.sulgijang.common.utils.CryptUtils;
 import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.models.UserInfo;
-import com.hirim.sulgijang.models.response.CommonResponse;
-import com.hirim.sulgijang.models.response.LoginResponse;
 import com.hirim.sulgijang.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class UserService {
