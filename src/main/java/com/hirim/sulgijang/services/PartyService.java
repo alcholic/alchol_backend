@@ -33,4 +33,8 @@ public class PartyService {
     public Party selectParty(long partyId, String partyName) {
         return partyRepository.selectParty(partyId, partyName);
     }
+
+    public List<User> selectUserListByParty(long partyId) {
+        return partyRepository.selectUserList(partyId);
+    }
 }
