@@ -13,10 +13,26 @@
         VALUES (#{diaryId}, #{placeId}, #{summary}, #{snack}, #{depth}, #{createdBy}, SYSDATE())
     </insert>
 
+    <delete id="deleteDiary">
+        DELETE FROM diary
+        WHERE diary_id = #{diaryId}
+    </delete>
+
+    <delete id="deleteDiaryContent">
+        DELETE FROM diary_content
+        WHERE diary_id = #{diaryId}
+    </delete>
+
     <select id="selectDiaryList" resultType="Diary">
         SELECT *
         FROM diary
-        WHERE party_id = #{partyId}
+        WHERE 1 = 1
+        <if test="diaryId > 0">
+            AND diary_id = #{diaryId}
+        </if>
+        <if test="partyId > 0">
+            AND party_id = #{partyId}
+        </if>
     </select>
 
     <select id="selectDiary" resultType="Diary">

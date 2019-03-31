@@ -13,7 +13,9 @@ import java.util.List;
 public interface DiaryRepository {
     void insertDiary(Diary diary);
     void insertDiaryContent(DiaryContent diaryContent);
-    List<Diary> selectDiaryList(long partyId);
+    void deleteDiary(long diaryId);
+    void deleteDiaryContent(long diaryId);
+    List<Diary> selectDiaryList(@Param("partyId") long partyId, @Param("diaryId") long diaryId);
     List<DiaryContent> selectDiaryContentList(long diaryId);
     Diary selectDiary(@Param("diaryId") long diaryId, @Param("diaryName") String diaryName);
 }

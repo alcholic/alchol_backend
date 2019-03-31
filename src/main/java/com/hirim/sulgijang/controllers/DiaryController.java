@@ -35,7 +35,7 @@ public class DiaryController {
 
     @GetMapping("/list")
     @ApiOperation(value = "모임별 다이어리 리스트")
-    public List<Diary> searchDiaryList(@RequestParam long partyId) {
-        return diaryService.selectDiaryList(partyId);
+    public List<Diary> searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId, @RequestParam(required = false, defaultValue = "0") long diaryId) {
+        return diaryService.selectDiaryList(partyId, diaryId);
     }
 }
