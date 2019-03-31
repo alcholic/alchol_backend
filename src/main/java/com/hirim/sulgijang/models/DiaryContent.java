@@ -9,7 +9,8 @@ public class DiaryContent extends BaseModel{
     private long diaryContentId;
     private long diaryId;
     private long placeId;
+    private String summary;
     private String snack;
-    private int level;
+    private long depth;
     private List<Drink> drinkList;
 }

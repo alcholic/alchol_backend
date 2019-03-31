@@ -31,6 +31,13 @@ public class PartyController {
         return CommonResponse.success();
     }
 
+    @PostMapping("/delete")
+    @ApiOperation(value = "모임 삭제")
+    public CommonResponse deleteParty(@RequestParam long partyId) {
+        partyService.deleteParty(partyId);
+        return CommonResponse.success();
+    }
+
     @PostMapping("/save/member")
     @ApiOperation(value="모임 인원 추가", notes="필수 : 모임ID, 추가 될 유저ID")
     public CommonResponse savePartyMember(@RequestBody PartyMember partyMember) {

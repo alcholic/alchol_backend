@@ -4,14 +4,35 @@
 <mapper namespace="com.hirim.sulgijang.repositories.DiaryRepository">
 
     <insert id="insertDiary" keyProperty="diaryId" useGeneratedKeys="true">
-        INSERT INTO diary(diary_name, meeting_date, created_by, created_at)
-        VALUES (#{diaryName}, #{meetingDate}, #{createdBy}, SYSDATE())
+        INSERT INTO diary(diary_name, meeting_date, loser, created_by, created_at)
+        VALUES (#{diaryName}, #{meetingDate}, #{loser}, #{createdBy}, SYSDATE())
     </insert>
+
+    <insert id="insertDiaryContent" keyProperty="diaryContentId" useGeneratedKeys="true">
+        INSERT INTO diary_content(diary_id, place_id, summary, snack, depth, created_by, created_at)
+        VALUES (#{diaryId}, #{placeId}, #{summary}, #{snack}, #{depth}, #{createdBy}, SYSDATE())
+    </insert>
+
+    <delete id="deleteDiary">
+        DELETE FROM diary
+        WHERE diary_id = #{diaryId}
+    </delete>
+
+    <delete id="deleteDiaryContent">
+        DELETE FROM diary_content
+        WHERE diary_id = #{diaryId}
+    </delete>
 
     <select id="selectDiaryList" resultType="Diary">
         SELECT *
         FROM diary
-        WHERE party_id = #{partyId}
+        WHERE 1 = 1
+        <if test="diaryId > 0">
+            AND diary_id = #{diaryId}
+        </if>
+        <if test="partyId > 0">
+            AND party_id = #{partyId}
+        </if>
     </select>
 
     <select id="selectDiary" resultType="Diary">
@@ -24,6 +45,12 @@
         <if test="diaryName != null">
             AND diary_name = #{diaryName}
         </if>
+    </select>
+
+    <select id="selectDiaryContentList" resultType="DiaryContent">
+        SELECT *
+        FROM diary_content
+        WHERE diary_id = #{diaryId}
     </select>
 
 </mapper>

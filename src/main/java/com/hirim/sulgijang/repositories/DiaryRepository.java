@@ -1,6 +1,7 @@
 package com.hirim.sulgijang.repositories;
 
 import com.hirim.sulgijang.models.Diary;
+import com.hirim.sulgijang.models.DiaryContent;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,10 @@ import java.util.List;
 @Repository
 public interface DiaryRepository {
     void insertDiary(Diary diary);
-    List<Diary> selectDiaryList(long partyId);
+    void insertDiaryContent(DiaryContent diaryContent);
+    void deleteDiary(long diaryId);
+    void deleteDiaryContent(long diaryId);
+    List<Diary> selectDiaryList(@Param("partyId") long partyId, @Param("diaryId") long diaryId);
+    List<DiaryContent> selectDiaryContentList(long diaryId);
     Diary selectDiary(@Param("diaryId") long diaryId, @Param("diaryName") String diaryName);
 }

@@ -13,6 +13,16 @@
         VALUES (#{partyId}, #{userId})
     </insert>
 
+    <delete id="deleteParty">
+        DELETE FROM party
+        WHERE party_id = #{partyId}
+    </delete>
+
+    <delete id="deletePartyMember">
+        DELETE FROM party_member
+        WHERE party_id = #{partyId}
+    </delete>
+
     <select id="selectParty" resultType="Party">
         SELECT *
         FROM party p

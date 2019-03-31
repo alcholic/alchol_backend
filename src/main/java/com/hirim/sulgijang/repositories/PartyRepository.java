@@ -13,6 +13,8 @@ import java.util.List;
 public interface PartyRepository {
     void insertParty(Party party);
     void insertPartyMember(@Param("partyId") long partyId, @Param("userId") long userId);
+    void deleteParty(long partyId);
+    void deletePartyMember(long partyId);
     List<Party> selectPartyList(long userId);
     Party selectParty(@Param("partyId") long partyId, @Param("partyName") String partyName);
     List<User> selectUserList(long party);
