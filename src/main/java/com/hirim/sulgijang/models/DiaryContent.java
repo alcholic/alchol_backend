@@ -8,7 +8,7 @@ import java.util.List;
 public class DiaryContent extends BaseModel{
     private long diaryContentId;
     private long diaryId;
-    private long placeId;
+    private String placeName;
     private String summary;
     private String snack;
     private long depth;

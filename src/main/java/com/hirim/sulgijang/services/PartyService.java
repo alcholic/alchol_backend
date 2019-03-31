@@ -1,6 +1,5 @@
 package com.hirim.sulgijang.services;
 
-import com.hirim.sulgijang.models.Diary;
 import com.hirim.sulgijang.models.Party;
 import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.repositories.PartyRepository;
