@@ -27,6 +27,10 @@ public class DiaryService {
         diaryRepository.insertDiaryContent(diaryContent);
     }
 
+    public void updateDiary(Diary diary){ diaryRepository.updateDiary(diary);}
+
+    public void updateDiaryContent(DiaryContent diaryContent){ diaryRepository.updateDiaryContent(diaryContent); }
+
     @Transactional
     public void deleteDiary(long diaryId) {
         diaryRepository.deleteDiary(diaryId);
@@ -35,7 +39,11 @@ public class DiaryService {
                 .collect(Collectors.toList());
     }
 
-    public List<Diary> selectDiaryList(long diaryId, long partyId) {return diaryRepository.selectDiaryList(diaryId, partyId); }
+    public List<Diary> selectDiaryList(long diaryId, long partyId) { return diaryRepository.selectDiaryList(diaryId, partyId); }
+
+    public List<DiaryContent> selectDiaryContentList(long diaryId) {
+        return diaryRepository.selectDiaryContentList(diaryId);
+    }
 
     public Diary selectDiary(long diaryId, String diaryName) { return diaryRepository.selectDiary(diaryId, diaryName); }
 }

@@ -13,6 +13,27 @@
         VALUES (#{diaryId}, #{placeId}, #{summary}, #{snack}, #{depth}, #{createdBy}, SYSDATE())
     </insert>
 
+    <update id="updateDiary">
+        UPDATE diary
+        SET diary_name = #{diaryName},
+            loser = #{loser},
+            meeting_date = #{meetingDate},
+            updated_at = SYSDATE(),
+            updated_by = #{updatedBy}
+        WHERE diary_id = #{diaryId}
+    </update>
+
+    <update id ="updateDiaryContent">
+        UPDATE diary_content
+        SET updated_by    = #{updatedBy},
+            updated_at    = SYSDATE(),
+            place_name = #{placeName},
+            summary = #{summary},
+            snack = #{snack},
+            depth = #{depth}
+        WHERE diary_content_id = #{diaryContentId}
+    </update>
+
     <delete id="deleteDiary">
         DELETE FROM diary
         WHERE diary_id = #{diaryId}
