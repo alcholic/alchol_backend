@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface DrinkRepository {
     void insertDrink(Drink drink);
-    void deleteDrink(long diaryContentId);
+    void deleteDrinkList(long diaryContentId);
     List<Drink> selectDrinkList(long diaryContentId);
 }

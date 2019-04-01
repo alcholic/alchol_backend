@@ -2,6 +2,7 @@ package com.hirim.sulgijang.controllers;
 
 import com.hirim.sulgijang.common.utils.UserSessionUtils;
 import com.hirim.sulgijang.models.Drink;
+import com.hirim.sulgijang.models.DrinkParam;
 import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.services.DrinkService;
@@ -32,15 +33,16 @@ public class DrinkController {
 
     @PostMapping("/update")
     @ApiOperation(value="다이어리 컨텐트 내 술 업데이트")
-    public void updateDrinkList(HttpServletRequest request, @RequestBody List<Drink> drinkList) {
+    public CommonResponse updateDrinkList(HttpServletRequest request, @RequestBody DrinkParam drinkParam) {
         User user = UserSessionUtils.UserBySession(request);
 
-        drinkService.updateDrinkList(user, drinkList);
+        drinkService.updateDrinkList(user, drinkParam);
+        return CommonResponse.success();
     }
 
     @GetMapping("/list")
     @ApiOperation(value = "다이어리 컨텐트 별 술 리스트")
-    public List<Drink> searchDrinkList(@RequestParam long diaryContentId) {
-        return drinkService.selectDrinkList(diaryContentId);
+    public CommonResponse searchDrinkList(@RequestParam long diaryContentId) {
+        return CommonResponse.successObject(drinkService.selectDrinkList(diaryContentId));
     }
 }

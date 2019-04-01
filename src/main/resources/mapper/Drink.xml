@@ -14,7 +14,7 @@
     </select>
 
     <delete id="deleteDrinkList">
-      DELETE drink
+      DELETE FROM drink
       WHERE diary_content_id = #{diaryContentId}
     </delete>
 </mapper>

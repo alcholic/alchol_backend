@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping("/diary")
@@ -63,13 +62,13 @@ public class DiaryController {
 
     @GetMapping("/list")
     @ApiOperation(value = "모임별 다이어리 리스트")
-    public List<Diary> searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId, @RequestParam(required = false, defaultValue = "0") long diaryId) {
-        return diaryService.selectDiaryList(partyId, diaryId);
+    public CommonResponse searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId, @RequestParam(required = false, defaultValue = "0") long diaryId) {
+        return CommonResponse.successObject(diaryService.selectDiaryList(partyId, diaryId));
     }
 
     @GetMapping("/content/list")
     @ApiOperation(value="다이어리 내용 리스트")
-    public List<DiaryContent> searchDiaryList(@RequestParam long diaryId) {
-        return diaryService.selectDiaryContentList(diaryId);
+    public CommonResponse searchDiaryList(@RequestParam long diaryId) {
+        return CommonResponse.successObject(diaryService.selectDiaryContentList(diaryId));
     }
 }
