@@ -4,8 +4,12 @@ import com.hirim.sulgijang.models.Drink;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface DrinkRepository {
-    void insertDrink(Drink drinkList);
+    void insertDrink(Drink drink);
+    void deleteDrink(long diaryContentId);
+    List<Drink> selectDrinkList(long diaryContentId);
 }

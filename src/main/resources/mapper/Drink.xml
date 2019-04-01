@@ -6,4 +6,15 @@
       INSERT drink(drink_name, amount, created_by, created_at)
       VALUES (#{drinkName}, #{amount}, #{createdBy}, SYSDATE())
     </insert>
+
+    <select id="selectDrinkList" resultType="Drink">
+      SELECT *
+      FROM drink
+      WHERE diary_content_id = #{diaryContentId}
+    </select>
+
+    <delete id="deleteDrinkList">
+      DELETE drink
+      WHERE diary_content_id = #{diaryContentId}
+    </delete>
 </mapper>
