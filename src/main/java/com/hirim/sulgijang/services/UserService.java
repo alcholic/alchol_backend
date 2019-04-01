@@ -47,4 +47,8 @@ public class UserService {
         userRepository.add(user);
         return user.getUserId();
     }
+
+    public void updatePushToken(long userId, String pushToken) {
+        userRepository.updatePushToken(userId, pushToken);
+    }
 }

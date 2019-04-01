@@ -4,13 +4,11 @@ import com.hirim.sulgijang.common.UserSessionHelper;
 import com.hirim.sulgijang.common.utils.CryptUtils;
 import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.models.UserInfo;
+import com.hirim.sulgijang.models.param.PushTokenParam;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.models.response.LoginResponse;
 import com.hirim.sulgijang.services.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
@@ -44,6 +42,13 @@ public class UserController {
                                             userInfo.getDeviceType(), userInfo.getAppVersion(), newToken))
                     );
                 });
+    }
+
+    @PutMapping("/pushToken")
+    public CommonResponse updatePushToken(HttpServletRequest request, @RequestBody PushTokenParam param) {
+        final UserInfo userInfo = UserSessionHelper.getUserInfo(request);
+        userService.updatePushToken(userInfo.getUserId(), param.getPushToken());
+        return CommonResponse.success();
     }
 
 }
