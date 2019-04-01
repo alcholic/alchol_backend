@@ -57,7 +57,7 @@ public class PartyController {
 
     @GetMapping("/list")
     @ApiOperation(value="유저의 모임 리스트")
-    public List<Party> searchParty(HttpServletRequest request) {
+    public List<Party> searchPartyList(HttpServletRequest request) {
         User user = UserSessionUtils.UserBySession(request);
         return partyService.selectPartyByUser(1L);
     }
