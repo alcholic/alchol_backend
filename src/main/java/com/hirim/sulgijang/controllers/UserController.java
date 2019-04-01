@@ -11,7 +11,6 @@ import com.hirim.sulgijang.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 import java.util.Random;
 
 @RestController
@@ -27,7 +26,7 @@ public class UserController {
     public CommonResponse login(HttpServletRequest request, @RequestBody User user) {
         final UserInfo userInfo = UserSessionHelper.getUserInfo(request);
         final String newToken = CryptUtils.encrypt(new Random().ints(3).toString());
-        return Optional.ofNullable(userService.select(user.getSnsType(), user.getSnsId()))
+        return userService.select(user.getSnsType(), user.getSnsId())
                 .map(u -> userService.isAuth(u.getUserId(), userInfo.getAccessToken())
                         ? CommonResponse.successObject(new LoginResponse(u.getUserId(), userService.addInfo(u.getUserId(),
                         userInfo.getDeviceId(), userInfo.getDeviceType(), userInfo.getAppVersion(), newToken)))
@@ -51,4 +50,11 @@ public class UserController {
         return CommonResponse.success();
     }
 
+    @GetMapping("")
+    public CommonResponse get(HttpServletRequest request) {
+        final UserInfo userInfo = UserSessionHelper.getUserInfo(request);
+        return userService.select(userInfo.getUserId())
+                .map(CommonResponse::successObject)
+                .orElse(CommonResponse.fail("없는 아이디 입니다."));
+    }
 }

@@ -15,8 +15,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User select(String snsType, String snsId) {
-        return userRepository.select(snsType, snsId);
+    public Optional<User> select(String snsType, String snsId) {
+        return Optional.ofNullable(userRepository.select(snsType, snsId));
+    }
+
+    public Optional<User> select(long userId) {
+        return Optional.ofNullable(userRepository.selectByUserId(userId));
     }
 
     public UserInfo selectInfo(long userId) {

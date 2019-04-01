@@ -19,6 +19,8 @@ public interface UserRepository {
 
     User select(@Param("snsType") String snsType, @Param("snsId") String snsId);
 
+    User selectByUserId(long userId);
+
     void deleteInfo(long userId);
 
     void updatePushToken(@Param("userId") long userId, @Param("pushToken") String pushToken);

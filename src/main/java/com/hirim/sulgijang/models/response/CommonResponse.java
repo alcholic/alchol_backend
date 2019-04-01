@@ -21,6 +21,10 @@ public class CommonResponse {
         this.message = message;
     }
 
+    public static CommonResponse fail() {
+        return new CommonResponse(ResultStatus.FAIL.getValue(), "");
+    }
+
     public static CommonResponse fail(String message) {
         return new CommonResponse(ResultStatus.FAIL.getValue(), message);
     }
