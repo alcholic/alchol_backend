@@ -29,7 +29,6 @@ public class DiaryService {
 
     @Transactional
     public void deleteDiary(long diaryId) {
-
         diaryRepository.deleteDiary(diaryId);
         diaryRepository.selectDiaryContentList(diaryId).stream()
                 .peek(i -> diaryRepository.deleteDiaryContent(i.getDiaryContentId()))

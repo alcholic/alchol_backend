@@ -1,6 +1,5 @@
 package com.hirim.sulgijang.services;
 
-import com.hirim.sulgijang.models.Diary;
 import com.hirim.sulgijang.models.Party;
 import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.repositories.PartyRepository;
@@ -21,9 +20,13 @@ public class PartyService {
     }
 
     @Transactional
-    public void insert(Party party) {
+    public void insertParty(Party party) {
         partyRepository.insertParty(party);
         partyRepository.insertPartyMember(party.getPartyId(), party.getCreatedBy());
+    }
+
+    public void updateParty(Party party) {
+        partyRepository.updateParty(party);
     }
 
     @Transactional

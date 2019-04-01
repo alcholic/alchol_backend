@@ -26,8 +26,17 @@ public class PartyController {
     @ApiOperation(value="모임 추가", notes="필수 : 모임명, 모임을 생성하는 유저ID")
     public CommonResponse saveParty(HttpServletRequest session, @RequestBody Party party) {
         User user = (User) session.getAttribute("user");
-        partyService.insert(new Party(party.getPartyName(), 1L)); // user.getUserId()
+        partyService.insertParty(new Party(party.getPartyName(), 1L)); // user.getUserId()
 
+        return CommonResponse.success();
+    }
+
+    @PostMapping("/update")
+    @ApiOperation(value = "모임 수정")
+    public CommonResponse updateParty(HttpServletRequest request, @RequestBody Party party) {
+        User user = UserSessionUtils.UserBySession(request);
+        party.setUpdatedBy(0);
+        partyService.updateParty(party);
         return CommonResponse.success();
     }
 
