@@ -35,6 +35,7 @@ public class DiaryController {
     @ApiOperation(value = "다이어리 내용 저장")
     public CommonResponse saveDiaryContent(HttpServletRequest request, @RequestBody DiaryContent diaryContent) {
         User user = UserSessionUtils.UserBySession(request);
+
         diaryContent.setCreatedBy(0);
         diaryService.insertDiaryContent(diaryContent);
         return CommonResponse.success();
@@ -44,6 +45,7 @@ public class DiaryController {
     @ApiOperation(value="다이어리 수정")
     public CommonResponse updateDiary(HttpServletRequest request, @RequestBody Diary diary) {
         User user = UserSessionUtils.UserBySession(request);
+
         diary.setUpdatedBy(0);
         diaryService.updateDiary(diary);
         return CommonResponse.success();
@@ -53,6 +55,7 @@ public class DiaryController {
     @ApiOperation(value="다이어리 컨텐츠 수정")
     public CommonResponse updateDiaryContent(HttpServletRequest request, @RequestBody DiaryContent diaryContent) {
         User user = UserSessionUtils.UserBySession(request);
+
         diaryContent.setUpdatedBy(0);
         diaryService.updateDiaryContent(diaryContent);
         return CommonResponse.success();
