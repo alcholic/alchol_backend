@@ -13,6 +13,14 @@
         VALUES (#{partyId}, #{userId})
     </insert>
 
+    <update id="updateParty">
+        UPDATE party
+        SET party_name = #{partyName},
+            updated_by = #{updatedBy},
+            updated_at = SYSDATE()
+        WHERE party_id = #{partyId}
+    </update>
+
     <delete id="deleteParty">
         DELETE FROM party
         WHERE party_id = #{partyId}

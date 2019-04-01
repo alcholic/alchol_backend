@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class Drink extends BaseModel{
     private long drinkId;
+    private String drinkName;
     private long amount;
 }

@@ -20,9 +20,13 @@ public class PartyService {
     }
 
     @Transactional
-    public void insert(Party party) {
+    public void insertParty(Party party) {
         partyRepository.insertParty(party);
         partyRepository.insertPartyMember(party.getPartyId(), party.getCreatedBy());
+    }
+
+    public void updateParty(Party party) {
+        partyRepository.updateParty(party);
     }
 
     @Transactional
