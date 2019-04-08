@@ -51,20 +51,19 @@ public class PartyController {
     @ApiOperation(value="모임 인원 추가", notes="필수 : 모임ID, 추가 될 유저ID")
     public CommonResponse savePartyMember(@RequestBody PartyMember partyMember) {
         partyService.insertPartyMember(partyMember.getPartyId(), partyMember.getUserList());
-
         return CommonResponse.success();
     }
 
     @GetMapping("/list")
     @ApiOperation(value="유저의 모임 리스트")
-    public List<Party> searchPartyList(HttpServletRequest request) {
+    public CommonResponse searchPartyList(HttpServletRequest request) {
         User user = UserSessionUtils.UserBySession(request);
-        return partyService.selectPartyByUser(1L);
+        return CommonResponse.successObject(partyService.selectPartyByUser(1L));
     }
 
     @GetMapping("/member/list")
     @ApiOperation(value = "모임별 유저 리스트")
-    public List<User> searchUserList(@RequestParam long partyId) {
-        return partyService.selectUserListByParty(partyId);
+    public CommonResponse searchUserList(@RequestParam long partyId) {
+        return CommonResponse.successObject(partyService.selectUserListByParty(partyId));
     }
 }

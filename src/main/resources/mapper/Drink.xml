@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hirim.sulgijang.repositories.DrinkRepository">
+    <insert id="insertDrink" keyProperty="drinkId" useGeneratedKeys="true">
+      INSERT drink(drink_name, amount, created_by, created_at)
+      VALUES (#{drinkName}, #{amount}, #{createdBy}, SYSDATE())
+    </insert>
+
+    <select id="selectDrinkList" resultType="Drink">
+      SELECT *
+      FROM drink
+      WHERE diary_content_id = #{diaryContentId}
+    </select>
+
+    <delete id="deleteDrinkList">
+      DELETE FROM drink
+      WHERE diary_content_id = #{diaryContentId}
+    </delete>
+</mapper>
