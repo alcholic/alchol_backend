@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hirim.sulgijang.repositories.FileRepository">
     <insert id="insertFile" keyProperty="fileId" useGeneratedKeys="true">
-        INSERT INTO diary(diary_id, file_name, file_uri, created_by, created_at)
+        INSERT INTO file(diary_id, file_name, file_uri, created_by, created_at)
         VALUES (#{diaryId}, #{fileName}, #{fileUri}, #{createdBy}, SYSDATE())
     </insert>
 </mapper>
