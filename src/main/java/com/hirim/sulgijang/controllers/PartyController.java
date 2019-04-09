@@ -20,11 +20,10 @@ public class PartyController {
         this.partyService = partyService;
     }
 
-    //@PostMapping("/party.api")
     @PostMapping("/save")
     @ApiOperation(value="모임 추가", notes="필수 : 모임명, 모임을 생성하는 유저ID")
     public CommonResponse saveParty(HttpServletRequest request, @RequestBody Party party) {
-
+        UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
         partyService.insertParty(new Party(party.getPartyName(), 0 /*userInfo.getUserId()*/)); // user.getUserId()
 
