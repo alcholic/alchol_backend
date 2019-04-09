@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DiaryService {
@@ -38,13 +37,17 @@ public class DiaryService {
     public void deleteDiary(long diaryId) {
         diaryRepository.deleteDiary(diaryId);
         diaryRepository.selectDiaryContentList(diaryId).stream()
-                .peek(i -> {
+                .forEach(i -> {
                     diaryRepository.deleteDiaryContent(i.getDiaryContentId());
                     drinkRepository.deleteDrinkList(i.getDiaryContentId());
-                }).collect(Collectors.toList());
+                });
     }
 
-    public List<Diary> selectDiaryList(long diaryId, long partyId) { return diaryRepository.selectDiaryList(diaryId, partyId); }
+    public void deleteDiaryContent(long diaryContentId) {
+        diaryRepository.deleteDiaryContent(diaryContentId);
+    }
+
+    public List<Diary> selectDiaryList(long diaryId, long partyId, String privateYn) { return diaryRepository.selectDiaryList(diaryId, partyId, privateYn); }
 
     public List<DiaryContent> selectDiaryContentList(long diaryId) {
         return diaryRepository.selectDiaryContentList(diaryId);

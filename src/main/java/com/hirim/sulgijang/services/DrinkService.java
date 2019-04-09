@@ -19,17 +19,13 @@ public class DrinkService {
     }
 
     @Transactional
-    public void insertDrinkList(User user, List<Drink> drinkList) {
-        drinkList.stream()
+    public void insertDrinkList(User user, DrinkParam drinkParam) {
+        drinkRepository.deleteDrinkList(drinkParam.getDiaryContentId());
+
+        drinkParam.getDrinkList().stream()
                 .peek(drink -> drink.setCreatedBy(0))
                 .peek(drink -> drinkRepository.insertDrink(drink))
                 .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public void updateDrinkList(User user, DrinkParam drinkParam) {
-        drinkRepository.deleteDrinkList(drinkParam.getDiaryContentId());
-        insertDrinkList(user, drinkParam.getDrinkList());
     }
 
     public List<Drink> selectDrinkList(long diaryContentList) {

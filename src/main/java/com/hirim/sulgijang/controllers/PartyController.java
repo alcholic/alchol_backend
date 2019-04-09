@@ -40,9 +40,9 @@ public class PartyController {
         return CommonResponse.success();
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/{partyId}")
     @ApiOperation(value = "모임 삭제")
-    public CommonResponse deleteParty(@RequestParam long partyId) {
+    public CommonResponse deleteParty(@PathVariable long partyId) {
         partyService.deleteParty(partyId);
         return CommonResponse.success();
     }

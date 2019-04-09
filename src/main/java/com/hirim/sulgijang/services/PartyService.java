@@ -35,7 +35,7 @@ public class PartyService {
        partyRepository.deleteParty(partyId);
        partyRepository.deletePartyMember(partyId);
 
-       diaryService.selectDiaryList(0, partyId).stream()
+       diaryService.selectDiaryList(0, partyId, null).stream()
                 .peek(i -> diaryService.deleteDiary(i.getDiaryId()))
                 .collect(Collectors.toList());
     }

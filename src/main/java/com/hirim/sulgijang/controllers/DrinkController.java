@@ -22,21 +22,11 @@ public class DrinkController {
     }
 
     @PostMapping("/save")
-    @ApiOperation(value = "술 리스트 저장")
-    public CommonResponse saveDrinkList(HttpServletRequest request, @RequestBody List<Drink> drinkList) {
-        User user = UserSessionUtils.UserBySession(request);
-
-        drinkService.insertDrinkList(user, drinkList);
-        return CommonResponse.success();
-
-    }
-
-    @PostMapping("/update")
-    @ApiOperation(value="다이어리 컨텐트 내 술 업데이트")
+    @ApiOperation(value="다이어리 컨텐트 내 술 저장")
     public CommonResponse updateDrinkList(HttpServletRequest request, @RequestBody DrinkParam drinkParam) {
         User user = UserSessionUtils.UserBySession(request);
 
-        drinkService.updateDrinkList(user, drinkParam);
+        drinkService.insertDrinkList(user, drinkParam);
         return CommonResponse.success();
     }
 

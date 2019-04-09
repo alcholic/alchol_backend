@@ -50,6 +50,13 @@ public class DiaryController {
         return CommonResponse.success();
     }
 
+    @DeleteMapping("/{diaryId}")
+    @ApiOperation(value="다이어리삭제")
+    public CommonResponse deleteDiary(@PathVariable long diaryId) {
+        diaryService.deleteDiary(diaryId);
+        return CommonResponse.success();
+    }
+
     @PostMapping("/content/update")
     @ApiOperation(value="다이어리 컨텐츠 수정")
     public CommonResponse updateDiaryContent(HttpServletRequest request, @RequestBody DiaryContent diaryContent) {
@@ -60,10 +67,18 @@ public class DiaryController {
         return CommonResponse.success();
     }
 
+    @DeleteMapping("/content/{diaryContentId}")
+    @ApiOperation(value = "다이어리 컨텐츠 삭제")
+    public CommonResponse deleteDiaryContent(@PathVariable long diaryContentId) {
+        diaryService.deleteDiaryContent(diaryContentId);
+        return CommonResponse.success();
+    }
+
     @GetMapping("/list")
-    @ApiOperation(value = "모임별 다이어리 리스트")
-    public CommonResponse searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId, @RequestParam(required = false, defaultValue = "0") long diaryId) {
-        return CommonResponse.successObject(diaryService.selectDiaryList(partyId, diaryId));
+    @ApiOperation(value = "모임별 다이어리 리스트", notes = "partyId, diaryId, privateYn 모두 required false")
+    public CommonResponse searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId, @RequestParam(required = false, defaultValue = "0") long diaryId,
+                                          @RequestParam(required = false) String privateYn) {
+        return CommonResponse.successObject(diaryService.selectDiaryList(partyId, diaryId, privateYn));
     }
 
     @GetMapping("/content/list")
