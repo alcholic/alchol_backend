@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/diary")
+@RequestMapping("/diaries")
 public class DiaryController {
 
     private final DiaryService diaryService;
@@ -21,7 +21,7 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/")
     @ApiOperation(value = "다이어리 저장")
     public CommonResponse saveDiary(HttpServletRequest request, @RequestBody Diary diary){
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
@@ -31,17 +31,7 @@ public class DiaryController {
         return CommonResponse.success();
     }
 
-    @PostMapping("/content/save")
-    @ApiOperation(value = "다이어리 내용 저장")
-    public CommonResponse saveDiaryContent(HttpServletRequest request, @RequestBody DiaryContent diaryContent) {
-        UserInfo userInfo = UserSessionHelper.getUserInfo(request);
-
-        diaryContent.setCreatedBy(0/*userInfo.getUserId()*/);
-        diaryService.insertDiaryContent(diaryContent);
-        return CommonResponse.success();
-    }
-
-    @PostMapping("/update")
+    @PutMapping("/")
     @ApiOperation(value="다이어리 수정")
     public CommonResponse updateDiary(HttpServletRequest request, @RequestBody Diary diary) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
@@ -58,7 +48,25 @@ public class DiaryController {
         return CommonResponse.success();
     }
 
-    @PostMapping("/content/update")
+
+    @GetMapping("/")
+    @ApiOperation(value = "모임별 다이어리 리스트", notes = "partyId, diaryId, privateYn 모두 required false")
+    public CommonResponse searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId, @RequestParam(required = false, defaultValue = "0") long diaryId,
+                                          @RequestParam(required = false) String privateYn) {
+        return CommonResponse.successObject(diaryService.selectDiaryList(partyId, diaryId, privateYn));
+    }
+
+    @PostMapping("/contents")
+    @ApiOperation(value = "다이어리 내용 저장")
+    public CommonResponse saveDiaryContent(HttpServletRequest request, @RequestBody DiaryContent diaryContent) {
+        UserInfo userInfo = UserSessionHelper.getUserInfo(request);
+
+        diaryContent.setCreatedBy(0/*userInfo.getUserId()*/);
+        diaryService.insertDiaryContent(diaryContent);
+        return CommonResponse.success();
+    }
+
+    @PutMapping("/contents")
     @ApiOperation(value="다이어리 컨텐츠 수정")
     public CommonResponse updateDiaryContent(HttpServletRequest request, @RequestBody DiaryContent diaryContent) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
@@ -68,23 +76,17 @@ public class DiaryController {
         return CommonResponse.success();
     }
 
-    @DeleteMapping("/content/{diaryContentId}")
+    @DeleteMapping("/contents/{diaryContentId}")
     @ApiOperation(value = "다이어리 컨텐츠 삭제")
     public CommonResponse deleteDiaryContent(@PathVariable long diaryContentId) {
         diaryService.deleteDiaryContent(diaryContentId);
         return CommonResponse.success();
     }
 
-    @GetMapping("/list")
-    @ApiOperation(value = "모임별 다이어리 리스트", notes = "partyId, diaryId, privateYn 모두 required false")
-    public CommonResponse searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId, @RequestParam(required = false, defaultValue = "0") long diaryId,
-                                          @RequestParam(required = false) String privateYn) {
-        return CommonResponse.successObject(diaryService.selectDiaryList(partyId, diaryId, privateYn));
-    }
 
-    @GetMapping("/content/list")
-    @ApiOperation(value="다이어리 내용 리스트")
-    public CommonResponse searchDiaryList(@RequestParam long diaryId) {
-        return CommonResponse.successObject(diaryService.selectDiaryContentList(diaryId));
+    @GetMapping("/contents")
+    @ApiOperation(value="다이어리 컨텐츠 리스트")
+    public CommonResponse searchDiaryContentList(@RequestParam(required = false, defaultValue = "0") long diaryId, @RequestParam(required = false, defaultValue = "0") long diaryContentId) {
+        return CommonResponse.successObject(diaryService.selectDiaryContentList(diaryId, diaryContentId));
     }
 }

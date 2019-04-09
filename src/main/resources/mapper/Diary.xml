@@ -9,8 +9,8 @@
     </insert>
 
     <insert id="insertDiaryContent" keyProperty="diaryContentId" useGeneratedKeys="true">
-        INSERT INTO diary_content(diary_id, place_id, summary, snack, depth, created_by, created_at)
-        VALUES (#{diaryId}, #{placeId}, #{summary}, #{snack}, #{depth}, #{createdBy}, SYSDATE())
+        INSERT INTO diary_content(diary_id, place_name, summary, snack, depth, created_by, created_at)
+        VALUES (#{diaryId}, #{placeName}, #{summary}, #{snack}, #{depth}, #{createdBy}, SYSDATE())
     </insert>
 
     <update id="updateDiary">
@@ -42,7 +42,7 @@
 
     <delete id="deleteDiaryContent">
         DELETE FROM diary_content
-        WHERE diary_id = #{diaryId}
+        WHERE diary_content_id = #{diaryContentId}
     </delete>
 
     <select id="selectDiaryList" resultType="Diary">
@@ -75,7 +75,13 @@
     <select id="selectDiaryContentList" resultType="DiaryContent">
         SELECT *
         FROM diary_content
-        WHERE diary_id = #{diaryId}
+        WHERE 1 = 1
+        <if test="diaryId > 0">
+            AND diary_id = #{diaryId}
+        </if>
+        <if test="diaryContentId > 0">
+            AND diary_content_id = #{diaryContentId}
+        </if>
     </select>
 
 </mapper>

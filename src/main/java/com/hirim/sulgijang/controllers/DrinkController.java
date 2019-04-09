@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/drink")
+@RequestMapping("/drinks")
 public class DrinkController {
     private final DrinkService drinkService;
 
@@ -19,7 +19,7 @@ public class DrinkController {
         this.drinkService = drinkService;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/")
     @ApiOperation(value="다이어리 컨텐트 내 술 저장")
     public CommonResponse updateDrinkList(HttpServletRequest request, @RequestBody DrinkParam drinkParam) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
@@ -28,7 +28,7 @@ public class DrinkController {
         return CommonResponse.success();
     }
 
-    @GetMapping("/list")
+    @GetMapping("/")
     @ApiOperation(value = "다이어리 컨텐트 별 술 리스트")
     public CommonResponse searchDrinkList(@RequestParam long diaryContentId) {
         return CommonResponse.successObject(drinkService.selectDrinkList(diaryContentId));

@@ -25,7 +25,7 @@ public class CommentController {
     public CommonResponse saveComment(HttpServletRequest request, @RequestBody Comment comment) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
-        comment.setCreatedBy(userInfo.getUserId());
+        comment.setCreatedBy(0/*userInfo.getUserId()*/);
         commentService.insertComment(comment);
 
         return CommonResponse.success();
@@ -36,14 +36,14 @@ public class CommentController {
     public CommonResponse updateComment(HttpServletRequest request, @RequestBody Comment comment) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
-        comment.setUpdatedBy(userInfo.getUserId());
+        comment.setUpdatedBy(0/*userInfo.getUserId()*/);
         commentService.updateComment(comment);
 
         return CommonResponse.success();
     }
 
     @ApiOperation(value = "댓글 삭제")
-    @DeleteMapping("/")
+    @DeleteMapping("/{commentId}")
     public CommonResponse deleteComment(@PathVariable long commentId) {
         commentService.deleteComment(commentId);
         return  CommonResponse.success();

@@ -23,7 +23,7 @@ public class DiaryService {
     public void insertDiary(Diary diary) { diaryRepository.insertDiary(diary); }
 
     public void insertDiaryContent(DiaryContent diaryContent) {
-        long lastDepth = diaryRepository.selectDiaryContentList(diaryContent.getDiaryId()).stream().count();
+        long lastDepth = diaryRepository.selectDiaryContentList(diaryContent.getDiaryId(), 0).stream().count();
         diaryContent.setDepth(lastDepth+1);
 
         diaryRepository.insertDiaryContent(diaryContent);
@@ -36,7 +36,7 @@ public class DiaryService {
     @Transactional
     public void deleteDiary(long diaryId) {
         diaryRepository.deleteDiary(diaryId);
-        diaryRepository.selectDiaryContentList(diaryId).stream()
+        diaryRepository.selectDiaryContentList(diaryId, 0).stream()
                 .forEach(i -> {
                     diaryRepository.deleteDiaryContent(i.getDiaryContentId());
                     drinkRepository.deleteDrinkList(i.getDiaryContentId());
@@ -49,8 +49,8 @@ public class DiaryService {
 
     public List<Diary> selectDiaryList(long diaryId, long partyId, String privateYn) { return diaryRepository.selectDiaryList(diaryId, partyId, privateYn); }
 
-    public List<DiaryContent> selectDiaryContentList(long diaryId) {
-        return diaryRepository.selectDiaryContentList(diaryId);
+    public List<DiaryContent> selectDiaryContentList(long diaryId, long diaryContentId) {
+        return diaryRepository.selectDiaryContentList(diaryId, diaryContentId);
     }
 
     public Diary selectDiary(long diaryId, String diaryName) { return diaryRepository.selectDiary(diaryId, diaryName); }
