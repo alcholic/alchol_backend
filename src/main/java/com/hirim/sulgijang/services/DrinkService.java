@@ -1,7 +1,7 @@
 package com.hirim.sulgijang.services;
 
 import com.hirim.sulgijang.models.Drink;
-import com.hirim.sulgijang.models.DrinkParam;
+import com.hirim.sulgijang.models.param.DrinkParam;
 import com.hirim.sulgijang.models.User;
 import com.hirim.sulgijang.repositories.DrinkRepository;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,11 @@ public class DrinkService {
     }
 
     @Transactional
-    public void insertDrinkList(User user, DrinkParam drinkParam) {
+    public void insertDrinkList(long userId, DrinkParam drinkParam) {
         drinkRepository.deleteDrinkList(drinkParam.getDiaryContentId());
 
         drinkParam.getDrinkList().stream()
-                .peek(drink -> drink.setCreatedBy(0))
+                .peek(drink -> drink.setCreatedBy(userId))
                 .peek(drink -> drinkRepository.insertDrink(drink))
                 .collect(Collectors.toList());
     }

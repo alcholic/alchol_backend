@@ -1,5 +1,6 @@
-package com.hirim.sulgijang.models;
+package com.hirim.sulgijang.models.param;
 
+import com.hirim.sulgijang.models.Drink;
 import lombok.Data;
 
 import java.util.List;

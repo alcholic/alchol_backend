@@ -1,9 +1,9 @@
 package com.hirim.sulgijang.controllers;
 
-import com.hirim.sulgijang.common.utils.UserSessionUtils;
+import com.hirim.sulgijang.common.UserSessionHelper;
 import com.hirim.sulgijang.models.Diary;
 import com.hirim.sulgijang.models.DiaryContent;
-import com.hirim.sulgijang.models.User;
+import com.hirim.sulgijang.models.UserInfo;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.services.DiaryService;
 import io.swagger.annotations.ApiOperation;
@@ -24,8 +24,9 @@ public class DiaryController {
     @PostMapping("/save")
     @ApiOperation(value = "다이어리 저장")
     public CommonResponse saveDiary(HttpServletRequest request, @RequestBody Diary diary){
-        User user = UserSessionUtils.UserBySession(request);
-        diary.setCreatedBy(0);
+        UserInfo userInfo = UserSessionHelper.getUserInfo(request);
+
+        diary.setCreatedBy(0/*userInfo.getUserId()*/);
         diaryService.insertDiary(diary);
         return CommonResponse.success();
     }
@@ -33,9 +34,9 @@ public class DiaryController {
     @PostMapping("/content/save")
     @ApiOperation(value = "다이어리 내용 저장")
     public CommonResponse saveDiaryContent(HttpServletRequest request, @RequestBody DiaryContent diaryContent) {
-        User user = UserSessionUtils.UserBySession(request);
+        UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
-        diaryContent.setCreatedBy(0);
+        diaryContent.setCreatedBy(0/*userInfo.getUserId()*/);
         diaryService.insertDiaryContent(diaryContent);
         return CommonResponse.success();
     }
@@ -43,9 +44,9 @@ public class DiaryController {
     @PostMapping("/update")
     @ApiOperation(value="다이어리 수정")
     public CommonResponse updateDiary(HttpServletRequest request, @RequestBody Diary diary) {
-        User user = UserSessionUtils.UserBySession(request);
+        UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
-        diary.setUpdatedBy(0);
+        diary.setUpdatedBy(0/*userInfo.getUserId()*/);
         diaryService.updateDiary(diary);
         return CommonResponse.success();
     }
@@ -60,9 +61,9 @@ public class DiaryController {
     @PostMapping("/content/update")
     @ApiOperation(value="다이어리 컨텐츠 수정")
     public CommonResponse updateDiaryContent(HttpServletRequest request, @RequestBody DiaryContent diaryContent) {
-        User user = UserSessionUtils.UserBySession(request);
+        UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
-        diaryContent.setUpdatedBy(0);
+        diaryContent.setUpdatedBy(0/*userInfo.getUserId()*/);
         diaryService.updateDiaryContent(diaryContent);
         return CommonResponse.success();
     }
