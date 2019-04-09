@@ -20,7 +20,7 @@ public class DrinkController {
     }
 
     @PostMapping("/")
-    @ApiOperation(value="다이어리 컨텐트 내 술 저장")
+    @ApiOperation(value="술 탭 내 술 저장")
     public CommonResponse updateDrinkList(HttpServletRequest request, @RequestBody DrinkParam drinkParam) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
@@ -29,7 +29,7 @@ public class DrinkController {
     }
 
     @GetMapping("/")
-    @ApiOperation(value = "다이어리 컨텐트 별 술 리스트")
+    @ApiOperation(value = "술 탭 내 술 리스트")
     public CommonResponse searchDrinkList(@RequestParam long diaryContentId) {
         return CommonResponse.successObject(drinkService.selectDrinkList(diaryContentId));
     }

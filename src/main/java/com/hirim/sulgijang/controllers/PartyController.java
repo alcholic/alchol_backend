@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/party")
+@RequestMapping("/parties")
 public class PartyController {
     private final PartyService partyService;
 
@@ -20,7 +20,7 @@ public class PartyController {
         this.partyService = partyService;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/")
     @ApiOperation(value="모임 추가", notes="필수 : 모임명, 모임을 생성하는 유저ID")
     public CommonResponse saveParty(HttpServletRequest request, @RequestBody Party party) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
@@ -30,7 +30,7 @@ public class PartyController {
         return CommonResponse.success();
     }
 
-    @PostMapping("/update")
+    @PutMapping("/")
     @ApiOperation(value = "모임 수정")
     public CommonResponse updateParty(HttpServletRequest request, @RequestBody Party party) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
@@ -49,7 +49,7 @@ public class PartyController {
         return CommonResponse.success();
     }
 
-    @PostMapping("/save/member")
+    @PostMapping("/members")
     @ApiOperation(value="모임 인원 추가", notes="필수 : 모임ID, 추가 될 유저ID")
     public CommonResponse savePartyMember(HttpServletRequest request, @RequestBody PartyMember partyMember) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
@@ -60,7 +60,7 @@ public class PartyController {
         return CommonResponse.success();
     }
 
-    @GetMapping("/list")
+    @GetMapping("/members")
     @ApiOperation(value="유저의 모임 리스트")
     public CommonResponse searchPartyList(HttpServletRequest request) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
@@ -68,7 +68,7 @@ public class PartyController {
         return CommonResponse.successObject(partyService.selectPartyByUser(0 /*userInfo.getUserId()*/));
     }
 
-    @GetMapping("/member/list")
+    @GetMapping("/members/user")
     @ApiOperation(value = "모임별 유저 리스트")
     public CommonResponse searchUserList(@RequestParam long partyId) {
         return CommonResponse.successObject(partyService.selectUserListByParty(partyId));

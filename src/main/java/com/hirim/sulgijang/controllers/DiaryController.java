@@ -67,7 +67,7 @@ public class DiaryController {
     }
 
     @PutMapping("/contents")
-    @ApiOperation(value="다이어리 컨텐츠 수정")
+    @ApiOperation(value="술자리 탭 수정")
     public CommonResponse updateDiaryContent(HttpServletRequest request, @RequestBody DiaryContent diaryContent) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
@@ -77,7 +77,7 @@ public class DiaryController {
     }
 
     @DeleteMapping("/contents/{diaryContentId}")
-    @ApiOperation(value = "다이어리 컨텐츠 삭제")
+    @ApiOperation(value = "술자리 탭 삭제")
     public CommonResponse deleteDiaryContent(@PathVariable long diaryContentId) {
         diaryService.deleteDiaryContent(diaryContentId);
         return CommonResponse.success();
@@ -85,7 +85,7 @@ public class DiaryController {
 
 
     @GetMapping("/contents")
-    @ApiOperation(value="다이어리 컨텐츠 리스트")
+    @ApiOperation(value="술자리 탭 리스트")
     public CommonResponse searchDiaryContentList(@RequestParam(required = false, defaultValue = "0") long diaryId, @RequestParam(required = false, defaultValue = "0") long diaryContentId) {
         return CommonResponse.successObject(diaryService.selectDiaryContentList(diaryId, diaryContentId));
     }
