@@ -5,15 +5,20 @@ import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.services.FileService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/photo")
 public class PhotoController {
+
+    @Value("${spring.file.url}")
+    private String fileUrl;
 
     private final FileService fileService;
 
@@ -21,32 +26,30 @@ public class PhotoController {
         this.fileService = fileService;
     }
 
-
     @PostMapping("/")
     @ApiOperation("사진 저장")
-    public CommonResponse uploadFile(@RequestParam("diaryId") long diaryId, @RequestParam("file") MultipartFile files) throws IOException {
+    public CommonResponse uploadFile(@RequestParam("diaryId") long diaryId, @RequestParam("file") MultipartFile file) throws IOException {
 
-        if (files.isEmpty()) {
-            // 업로드할 파일 없을시
+        if (file.isEmpty()) {
+           return CommonResponse.success("업로드할 파일 없음");
         } else {
-            String fileName = files.getOriginalFilename();
-            String fileNameExtension = FilenameUtils.getExtension(fileName).toLowerCase();
-            File destinationFile;
-            String destinationFileName;
-            String fileUrl = "/Users/user/git/alchol_backend/src/main/resources/imageTesta";
 
-            do {
-                destinationFileName = "TEST" + "." + fileNameExtension;
-                destinationFile = new File(fileUrl + destinationFileName);
-            } while (destinationFile.exists());
+            String fileName = file.getOriginalFilename();
+            String fileNameExtension = FilenameUtils.getExtension(fileName).toLowerCase();
+
+            String destinationFileName = new StringBuilder(UUID.randomUUID().toString())
+                                                    .append(".")
+                                                    .append(fileNameExtension)
+                                                    .toString();
+
+            File destinationFile = new File(fileUrl + destinationFileName);
 
             destinationFile.getParentFile().mkdirs();
-            files.transferTo(destinationFile);
+            file.transferTo(destinationFile);
 
-            Photo photo = new Photo(diaryId, fileName, fileUrl);
+            fileService.insertFile(new Photo(diaryId, destinationFileName, fileUrl));
 
-            fileService.insertFile(photo);
+            return CommonResponse.success();
         }
-        return CommonResponse.success();
     }
 }

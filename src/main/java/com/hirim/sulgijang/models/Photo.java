@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Photo extends BaseModel{
-    private long photoId;
+    private long fileId;
     private long diaryId;
     private String fileName;
     private String fileUri;
