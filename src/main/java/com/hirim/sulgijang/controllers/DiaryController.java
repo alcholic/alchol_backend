@@ -3,6 +3,7 @@ package com.hirim.sulgijang.controllers;
 import com.hirim.sulgijang.common.UserSessionHelper;
 import com.hirim.sulgijang.models.Diary;
 import com.hirim.sulgijang.models.DiaryContent;
+import com.hirim.sulgijang.models.Image;
 import com.hirim.sulgijang.models.UserInfo;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.services.DiaryService;

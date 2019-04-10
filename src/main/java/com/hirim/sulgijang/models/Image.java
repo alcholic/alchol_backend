@@ -5,14 +5,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Photo extends BaseModel{
+public class Image extends BaseModel{
     private long fileId;
     private long diaryId;
     private String fileName;
     private String fileUri;
 
-    public Photo(long diaryId, String fileName, String fileUri) {
-        this.diaryId = diaryId;
+    public Image(String fileName, String fileUri) {
         this.fileName = fileName;
         this.fileUri = fileUri;
     }

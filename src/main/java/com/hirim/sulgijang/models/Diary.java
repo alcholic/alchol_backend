@@ -14,4 +14,5 @@ public class Diary extends BaseModel{
     private Timestamp meetingDate;
     private long loser;
     private String privateYn;
+    private Image image;
 }

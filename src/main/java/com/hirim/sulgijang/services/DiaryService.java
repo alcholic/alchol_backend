@@ -2,8 +2,10 @@ package com.hirim.sulgijang.services;
 
 import com.hirim.sulgijang.models.Diary;
 import com.hirim.sulgijang.models.DiaryContent;
+import com.hirim.sulgijang.models.Image;
 import com.hirim.sulgijang.repositories.DiaryRepository;
 import com.hirim.sulgijang.repositories.DrinkRepository;
+import com.hirim.sulgijang.repositories.FileRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,13 +16,23 @@ public class DiaryService {
 
     private final DiaryRepository diaryRepository;
     private final DrinkRepository drinkRepository;
+    private final FileRepository fileRepository;
 
-    public DiaryService(DiaryRepository diaryRepository, DrinkRepository drinkRepository) {
+    public DiaryService(DiaryRepository diaryRepository, DrinkRepository drinkRepository, FileRepository fileRepository) {
         this.diaryRepository = diaryRepository;
         this.drinkRepository = drinkRepository;
+        this.fileRepository = fileRepository;
     }
 
-    public void insertDiary(Diary diary) { diaryRepository.insertDiary(diary); }
+    @Transactional
+    public void insertDiary(Diary diary) {
+        diaryRepository.insertDiary(diary);
+
+        Image image = diary.getImage();
+        image.setDiaryId(diary.getDiaryId());
+
+        fileRepository.insertFile(image);
+    }
 
     public void insertDiaryContent(DiaryContent diaryContent) {
         long lastDepth = diaryRepository.selectDiaryContentList(diaryContent.getDiaryId(), 0).stream().count();

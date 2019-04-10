@@ -1,6 +1,6 @@
 package com.hirim.sulgijang.services;
 
-import com.hirim.sulgijang.models.Photo;
+import com.hirim.sulgijang.models.Image;
 import com.hirim.sulgijang.repositories.FileRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class FileService {
         this.fileRepository = fileRepository;
     }
 
-    public void insertFile(Photo photo) {
-        fileRepository.insertFile(photo);
+    public void insertFile(Image image) {
+        fileRepository.insertFile(image);
     }
 }
