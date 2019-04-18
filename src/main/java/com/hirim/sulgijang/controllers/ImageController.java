@@ -24,11 +24,9 @@ public class ImageController {
 
     @PostMapping("/upload")
     @ApiOperation(value = "이미지업로드", notes = "업로드된 이미지의 파일명, url 리턴")
-    public CommonResponse uploadImage(@RequestParam("file") List<MultipartFile> files) {
+    public CommonResponse uploadImage(@RequestHeader("file") List<MultipartFile> files) {
 
-        final List<Image> list = new LinkedList<>();
-
-        files.stream().peek(file -> {
+        List<Image> imageList = files.stream().map(file -> {
 
             String fileNameExtension = FilenameUtils.getExtension(file.getOriginalFilename()).toLowerCase();
 
@@ -46,10 +44,10 @@ public class ImageController {
                 e.printStackTrace();
             }
 
-            list.add(new Image(destinationFileName, fileUrl));
+            return new Image(destinationFileName, fileUrl);
 
         }).collect(Collectors.toList());
 
-        return CommonResponse.successObject(list);
+        return CommonResponse.successObject(imageList);
     }
 }
