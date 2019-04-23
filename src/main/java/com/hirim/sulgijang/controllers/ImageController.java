@@ -10,7 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/image")
@@ -21,26 +24,30 @@ public class ImageController {
 
     @PostMapping("/upload")
     @ApiOperation(value = "이미지업로드", notes = "업로드된 이미지의 파일명, url 리턴")
-    public CommonResponse uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+    public CommonResponse uploadImage(@RequestHeader("file") List<MultipartFile> files) {
 
-        if (!file.isEmpty()) {
+        List<Image> imageList = files.stream().map(file -> {
 
-            String fileName = file.getOriginalFilename();
-            String fileNameExtension = FilenameUtils.getExtension(fileName).toLowerCase();
+            String fileNameExtension = FilenameUtils.getExtension(file.getOriginalFilename()).toLowerCase();
 
             String destinationFileName = new StringBuilder(UUID.randomUUID().toString())
-                                                    .append(".")
-                                                    .append(fileNameExtension)
-                                                    .toString();
+                    .append(".")
+                    .append(fileNameExtension)
+                    .toString();
 
             File destinationFile = new File(fileUrl + destinationFileName);
-
             destinationFile.getParentFile().mkdirs();
-            file.transferTo(destinationFile);
 
-            return CommonResponse.successObject(new Image(destinationFileName, fileUrl));
-        } else {
-            return CommonResponse.fail();
-        }
+            try {
+                file.transferTo(destinationFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return new Image(destinationFileName, fileUrl);
+
+        }).collect(Collectors.toList());
+
+        return CommonResponse.successObject(imageList);
     }
 }
