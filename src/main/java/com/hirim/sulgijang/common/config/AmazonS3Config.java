@@ -1,4 +1,3 @@
-/*
 package com.hirim.sulgijang.common.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -13,22 +12,22 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmazonS3Config {
 
-    @Value("cloud.aws.s3.region")
-    private static String region;
-
     @Value("cloud.aws.credentials.accessKey")
-    private static String accessKey;
+    private String awsKeyId;
 
     @Value("cloud.aws.credentials.secretKey")
-    private static String secretKey;
+    private String accessKey;
+
+    @Value("cloud.aws.s3.region")
+    private String region;
 
     @Bean
-    public AmazonS3 s3client() {
-        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-
-        return AmazonS3ClientBuilder.standard().withRegion(Regions.fromName(region))
-                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials)).build();
-
+    public AmazonS3 awsS3Client() {
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsKeyId, accessKey);
+        return AmazonS3ClientBuilder
+                .standard()
+                .withRegion(Regions.fromName(region))
+                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+                .build();
     }
 }
-*/

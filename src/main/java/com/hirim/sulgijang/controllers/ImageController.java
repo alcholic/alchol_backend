@@ -21,7 +21,7 @@ public class ImageController {
     @PostMapping("/upload")
     @ApiOperation(value = "이미지업로드", notes = "업로드된 이미지의 파일명, url 리턴")
     public CommonResponse uploadImage(@RequestHeader("file") List<MultipartFile> files) {
-
-        return CommonResponse.successObject(fileService.uploadFile(files));
+        return CommonResponse.success();
+        //return CommonResponse.successObject(fileService.uploadFile(files));
     }
 }
