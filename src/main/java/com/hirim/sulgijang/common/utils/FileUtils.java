@@ -1,5 +1,6 @@
 package com.hirim.sulgijang.common.utils;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.hirim.sulgijang.models.Image;
@@ -16,10 +17,10 @@ import java.util.UUID;
 @Component
 public class FileUtils {
     private final String bucketName;
-    private final AmazonS3Client awsS3Client;
+    private final AmazonS3 awsS3Client;
 
-    public FileUtils(AmazonS3Client amazonS3Client, @Value("${cloud.aws.s3.bucketName}") String bucketName) {
-        this.awsS3Client = amazonS3Client;
+    public FileUtils(AmazonS3 awsS3Client, @Value("${cloud.aws.s3.bucketName}") String bucketName) {
+        this.awsS3Client = awsS3Client;
         this.bucketName = bucketName;
     }
 
@@ -29,7 +30,7 @@ public class FileUtils {
 
         awsS3Client.putObject(new PutObjectRequest(bucketName, fileName, file));
 
-        return new Image(fileName, awsS3Client.getResourceUrl(bucketName, fileName));
+        return new Image(fileName, awsS3Client.getUrl(bucketName, fileName).toString());
     }
 
     public File convertMultiPartToFile(MultipartFile file) throws IOException {
