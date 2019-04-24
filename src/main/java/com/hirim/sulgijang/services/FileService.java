@@ -10,15 +10,16 @@ import java.io.IOException;
 
 @Service
 public class FileService {
-
+    private final FileUtils fileUtils;
     private final FileRepository fileRepository;
 
-    public FileService(FileRepository fileRepository) {
+    public FileService(FileUtils fileUtils, FileRepository fileRepository) {
+        this.fileUtils = fileUtils;
         this.fileRepository = fileRepository;
     }
 
     public void uploadFile(MultipartFile file) throws IOException {
-        FileUtils.uploadFileToBucket(file);
+        fileUtils.uploadFileToBucket(file);
     }
 
     public void insertFile(Image image) {
