@@ -1,9 +1,10 @@
 package com.hirim.sulgijang.common.utils;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.hirim.sulgijang.models.Image;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Component
+@Slf4j
 public class FileUtils {
     private final String bucketName;
     private final AmazonS3 awsS3Client;
@@ -24,13 +26,23 @@ public class FileUtils {
         this.bucketName = bucketName;
     }
 
-    public Image uploadFileToBucket(MultipartFile multipartFile) throws IOException {
-        String fileName = generateFileName(multipartFile);
-        File file = convertMultiPartToFile(multipartFile);
+    public Image uploadFileToBucket(MultipartFile multipartFile) {
 
-        awsS3Client.putObject(new PutObjectRequest(bucketName, fileName, file));
+        try {
 
-        return new Image(fileName, awsS3Client.getUrl(bucketName, fileName).toString());
+            String fileName = generateFileName(multipartFile);
+            File file = convertMultiPartToFile(multipartFile);
+
+            awsS3Client.putObject(new PutObjectRequest(bucketName, fileName, file));
+
+            file.delete();
+
+            return new Image(fileName, awsS3Client.getUrl(bucketName, fileName).toString());
+
+        } catch (AmazonServiceException | IOException e) {
+            log.error("AmazonSericeException : " + e.getMessage());
+            return null;
+        }
     }
 
     public File convertMultiPartToFile(MultipartFile file) throws IOException {

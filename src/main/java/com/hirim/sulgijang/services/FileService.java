@@ -18,8 +18,8 @@ public class FileService {
         this.fileRepository = fileRepository;
     }
 
-    public void uploadFile(MultipartFile file) throws IOException {
-        fileUtils.uploadFileToBucket(file);
+    public Image uploadFile(MultipartFile file) {
+        return fileUtils.uploadFileToBucket(file);
     }
 
     public void insertFile(Image image) {
