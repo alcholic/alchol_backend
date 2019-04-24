@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DiaryService {
@@ -28,10 +29,11 @@ public class DiaryService {
     public void insertDiary(Diary diary) {
         diaryRepository.insertDiary(diary);
 
-        Image image = diary.getImage();
-        image.setDiaryId(diary.getDiaryId());
-
-        fileRepository.insertFile(image);
+        Optional.ofNullable(diary.getImage())
+                    .ifPresent(img -> {
+                        img.setDiaryId(diary.getDiaryId());
+                        fileRepository.insertFile(img);
+                    });
     }
 
     public void insertDiaryContent(DiaryContent diaryContent) {

@@ -20,6 +20,14 @@ public class PartyController {
         this.partyService = partyService;
     }
 
+    @GetMapping("/")
+    @ApiOperation(value="내모임", notes="세션에 등록된 로그인 유저 아이디로 검색")
+    public CommonResponse searchPartyList(HttpServletRequest request) {
+        UserInfo userInfo = UserSessionHelper.getUserInfo(request);
+
+        return CommonResponse.successObject(partyService.selectPartyByUser(0 /*userInfo.getUserId()*/));
+    }
+
     @PostMapping("/")
     @ApiOperation(value="모임 추가", notes="필수 : 모임명, 모임을 생성하는 유저ID")
     public CommonResponse saveParty(HttpServletRequest request, @RequestBody Party party) {
@@ -58,14 +66,6 @@ public class PartyController {
         partyService.insertPartyMember(partyMember.getPartyId(), partyMember.getUserList());
 
         return CommonResponse.success();
-    }
-
-    @GetMapping("/members")
-    @ApiOperation(value="유저의 모임 리스트")
-    public CommonResponse searchPartyList(HttpServletRequest request) {
-        UserInfo userInfo = UserSessionHelper.getUserInfo(request);
-
-        return CommonResponse.successObject(partyService.selectPartyByUser(0 /*userInfo.getUserId()*/));
     }
 
     @GetMapping("/members/user")
