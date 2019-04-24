@@ -1,6 +1,10 @@
 package com.hirim.sulgijang.common.utils;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.hirim.sulgijang.models.Image;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -9,8 +13,24 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class FileUtils {
+    private final String bucketName;
+    private final AmazonS3Client awsS3Client;
 
-    public static File convertMultiPartToFile(MultipartFile file) throws IOException {
+    public FileUtils(AmazonS3Client amazonS3Client, @Value("${cloud.aws.s3.bucketName}") String bucketName) {
+        this.awsS3Client = amazonS3Client;
+        this.bucketName = bucketName;
+    }
+
+    public Image uploadFileToBucket(MultipartFile multipartFile) throws IOException {
+        String fileName = generateFileName(multipartFile);
+        File file = convertMultiPartToFile(multipartFile);
+
+        awsS3Client.putObject(new PutObjectRequest(bucketName, fileName, file));
+
+        return new Image(fileName, awsS3Client.getResourceUrl(bucketName, fileName));
+    }
+
+    public File convertMultiPartToFile(MultipartFile file) throws IOException {
         File resultFile = new File(file.getOriginalFilename());
 
         FileOutputStream fos = new FileOutputStream(resultFile);
@@ -20,7 +40,7 @@ public class FileUtils {
         return resultFile;
     }
 
-    public static String generateFileName(MultipartFile file) throws IOException {
+    public String generateFileName(MultipartFile file) {
         String fileNameExtension = FilenameUtils.getExtension(file.getOriginalFilename()).toLowerCase();
         return new StringBuilder(UUID.randomUUID().toString())
                 .append(".")
