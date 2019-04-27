@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="EUC-KR">
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>Document</title>
+    <style>
+        .row {
+            display: flex;
+            width: 500px;
+            height: 60px;
+        }
+
+        .col {
+            width: 20%;
+        }
+
+        .left {
+            border-left: solid 1px #111;
+        }
+        .right {
+            border-right: solid 1px #111;
+        }
+        .top {
+            border-top: solid 1px #111;
+        }
+        .bottom {
+            border-bottom: solid 1px #111;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="row0" class="row left right">
+
+        </div>
+        <div id="row1" class="row left right">
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col bottom left right"></div>-->
+            <!--<div class="col bottom left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col bottom left right"></div>-->
+        </div>
+        <div id="row2" class="row left right">
+            <!--<div class="col bottom left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col left right"></div>-->
+        </div>
+        <div id="row3" class="row left right">
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col bottom left right"></div>-->
+        </div>
+        <div id="row4" class="row left right">
+            <!--<div class="col bottom left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col bottom left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col left right"></div>-->
+        </div>
+        <div id="row5" class="row left right">
+            <!--<div class="col bottom left right"></div>-->
+            <!--<div class="col bottom left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col bottom left right"></div>-->
+        </div>
+        <div id="row6" class="row left right">
+            <!--<div class="col bottom left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col bottom left right"></div>-->
+            <!--<div class="col left right"></div>-->
+            <!--<div class="col left right"></div>-->
+        </div>
+        <div id="row7" class="row left right">
+            <div class="col left right"></div>
+            <div class="col left right"></div>
+            <div class="col left right"></div>
+            <div class="col left right"></div>
+            <div class="col left right"></div>
+        </div>
+
+    </div>
+</body>
+<script>
+    const count = 5;
+    (function() {
+        document.addEventListener("DOMContentLoaded", function(){
+            init();
+        });
+        
+        function init() {
+            var rowWitdh = 100 / (count - 1) + '%';
+            for (var j = 0; j < 8; j++) {
+                var result = '';
+                for (var i = 0; i < count - 1; i++) {
+                    var div = (Math.floor(Math.random() * 10) % 3 != 0) || j == 7
+                        ? "<div class=\"left right\" style='width: " + rowWitdh + "'></div>"
+                        : "<div class=\"bottom left right\" style='width: " + rowWitdh+"'></div>";
+
+                    result += div;
+                }
+                console.log("asd");
+                document.getElementById('row' + j).innerHTML = result;
+                result = '';
+            }
+        }
+    })()
+</script>
+</html>
