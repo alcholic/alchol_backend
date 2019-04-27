@@ -20,9 +20,11 @@ public class PartyService {
     }
 
     @Transactional
-    public void insertParty(Party party) {
+    public Party insertParty(Party party) {
         partyRepository.insertParty(party);
         partyRepository.insertPartyMember(party.getPartyId(), party.getCreatedBy());
+
+        return party;
     }
 
     public void updateParty(Party party) {
@@ -54,6 +56,6 @@ public class PartyService {
     }
 
     public List<User> selectUserListByParty(long partyId) {
-        return partyRepository.selectUserList(partyId);
+        return partyRepository.selectMemberList(partyId);
     }
 }
