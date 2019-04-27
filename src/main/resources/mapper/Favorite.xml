@@ -6,4 +6,9 @@
       INSERT party_favorites(party_id, user_id)
       VALUES (#{partyId}, #{userId})
     </insert>
+
+    <delete id="deleteFavoriteParty">
+        DELETE FROM party_favorites
+        WHERE favorite_id = #{favoriteId}
+    </delete>
 </mapper>

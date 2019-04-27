@@ -42,19 +42,18 @@ public class DiaryController {
         return CommonResponse.success();
     }
 
-    @DeleteMapping("/{diaryId}")
-    @ApiOperation(value="다이어리삭제")
-    public CommonResponse deleteDiary(@PathVariable long diaryId) {
-        diaryService.deleteDiary(diaryId);
-        return CommonResponse.success();
-    }
-
-
     @GetMapping("/")
     @ApiOperation(value = "모임별 다이어리 리스트", notes = "partyId, diaryId, privateYn 모두 required false")
     public CommonResponse searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId, @RequestParam(required = false, defaultValue = "0") long diaryId,
                                           @RequestParam(required = false) String privateYn) {
         return CommonResponse.successObject(diaryService.selectDiaryList(partyId, diaryId, privateYn));
+    }
+
+    @DeleteMapping("/{diaryId}")
+    @ApiOperation(value="다이어리삭제")
+    public CommonResponse deleteDiary(@PathVariable long diaryId) {
+        diaryService.deleteDiary(diaryId);
+        return CommonResponse.success();
     }
 
     @PostMapping("/contents")

@@ -47,10 +47,9 @@
       SELECT *
       FROM party p
       INNER JOIN party_member pm ON p.party_id = pm.party_id
-      INNER JOIN party_favorites f ON f.party_id = p.party_id
-      WHERE f.user_id = pm.user_id
-        AND pm.user_id = #{userId}
-      ORDER BY f.favorite_id, p.created_at DESC
+      LEFT JOIN party_favorites f ON f.party_id = p.party_id
+        WHERE pm.user_id = #{userId}
+      ORDER BY f.favorite_id, p.created_at DESC;
     </select>
 
     <select id="selectMemberList" resultType="com.hirim.sulgijang.models.User">
