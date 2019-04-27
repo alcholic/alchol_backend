@@ -31,7 +31,7 @@
         WHERE party_id = #{partyId}
     </delete>
 
-    <select id="selectParty" resultType="Party">
+    <select id="selectParty" resultType="com.hirim.sulgijang.models.Party">
         SELECT *
         FROM party p
         WHERE 1 = 1
@@ -43,17 +43,21 @@
         </if>
     </select>
 
-    <select id="selectPartyList" resultType="Party">
+    <select id="selectPartyList" resultType="com.hirim.sulgijang.models.Party">
       SELECT *
       FROM party p
       INNER JOIN party_member pm ON p.party_id = pm.party_id
-      WHERE user_id = #{userId}
+      INNER JOIN party_favorites f ON f.party_id = p.party_id
+      WHERE f.user_id = pm.user_id
+        AND pm.user_id = #{userId}
+      ORDER BY f.favorite_id, p.created_at DESC
     </select>
 
-    <select id="selectUserList" resultType="User">
+    <select id="selectMemberList" resultType="com.hirim.sulgijang.models.User">
         SELECT *
         FROM party_member pm
+        INNER JOIN party p ON p.party_id = pm.party_id
         INNER JOIN user u ON u.user_id = pm.user_id
-        WHERE pm.party_id = #{partyId}
+        WHERE p.party_id = #{partyId}
     </select>
 </mapper>
