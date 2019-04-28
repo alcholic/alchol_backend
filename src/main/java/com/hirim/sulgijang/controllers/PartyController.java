@@ -6,6 +6,7 @@ import com.hirim.sulgijang.models.PartyMember;
 import com.hirim.sulgijang.models.UserInfo;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.services.PartyService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 

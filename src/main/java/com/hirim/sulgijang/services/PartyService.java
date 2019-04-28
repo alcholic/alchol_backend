@@ -38,7 +38,7 @@ public class PartyService {
        partyRepository.deleteParty(partyId);
        partyRepository.deletePartyMember(partyId);
 
-       diaryService.selectDiaryList(0, partyId, null).stream()
+       diaryService.selectDiaryListByParty(partyId, null).stream()
                 .peek(i -> diaryService.deleteDiary(i.getDiaryId()))
                 .collect(Collectors.toList());
     }
@@ -52,8 +52,8 @@ public class PartyService {
         return partyRepository.selectPartyList(userId);
     }
 
-    public Party selectParty(long partyId, String partyName) {
-        return partyRepository.selectParty(partyId, partyName);
+    public Party selectParty(String partyName) {
+        return partyRepository.selectParty(partyName);
     }
 
 }

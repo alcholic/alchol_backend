@@ -61,11 +61,9 @@ public class DiaryService {
         diaryRepository.deleteDiaryContent(diaryContentId);
     }
 
-    public List<Diary> selectDiaryList(long diaryId, long partyId, String privateYn) { return diaryRepository.selectDiaryList(diaryId, partyId, privateYn); }
+    public List<Diary> selectDiaryListByParty(long partyId, String privateYn) { return diaryRepository.selectDiaryListByParty(partyId, privateYn); }
 
     public List<DiaryContent> selectDiaryContentList(long diaryId, long diaryContentId) {
         return diaryRepository.selectDiaryContentList(diaryId, diaryContentId);
     }
-
-    public Diary selectDiary(long diaryId, String diaryName) { return diaryRepository.selectDiary(diaryId, diaryName); }
 }

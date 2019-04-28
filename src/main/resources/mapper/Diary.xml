@@ -45,31 +45,33 @@
         WHERE diary_content_id = #{diaryContentId}
     </delete>
 
-    <select id="selectDiaryList" resultType="Diary">
-        SELECT *
-        FROM diary
-        WHERE 1 = 1
-        <if test="diaryId > 0">
-            AND diary_id = #{diaryId}
-        </if>
-        <if test="partyId > 0">
-            AND party_id = #{partyId}
-        </if>
-        <if test="privateYn != null">
-            AND private_yn = #{privateYn}
-        </if>
-    </select>
+    <resultMap id="diaryResultMap" type="com.hirim.sulgijang.models.Diary">
+        <id property="diaryId" column="diary_id" />s
+    </resultMap>
 
-    <select id="selectDiary" resultType="Diary">
+    <resultMap id="partyMember" type="com.hirim.sulgijang.models.PartyMember">
+        <id property="partyMemberId" column="party_member_id" />
+    </resultMap>
+
+    <resultMap id="diaryParam" type="com.hirim.sulgijang.models.param.PartyParam">
+        <id property="partyId" column="party_id"/>
+        <result property="partyName" column="party_name"/>
+        <collection property="partyMemberList" resultMap="partyMember"/>
+        <collection property="diaryList" resultMap="diaryResultMap"/>
+    </resultMap>
+
+    <select id="selectDiaryListByParty" resultType="diaryParam">
         SELECT *
-        FROM diary
+        FROM diary d
+        INNER JOIN party p ON p.party_id = d.party_id
+        INNER JOIN party_member pm ON d.party_id = pm.party_id
         WHERE 1 = 1
-        <if test="diaryId > 0">
-            AND diary_id = #{diaryId}
-        </if>
-        <if test="diaryName != null">
-            AND diary_name = #{diaryName}
-        </if>
+            <if test="partyId > 0">
+                AND d.party_id = #{partyId}
+            </if>
+            <if test="privateYn != null">
+                AND d.private_yn = #{privateYn}
+            </if>
     </select>
 
     <select id="selectDiaryContentList" resultType="DiaryContent">

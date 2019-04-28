@@ -19,5 +19,5 @@ public interface PartyRepository {
     void deleteParty(long partyId);
     void deletePartyMember(long partyId);
     List<PartyParam> selectPartyList(long userId);
-    Party selectParty(@Param("partyId") long partyId, @Param("partyName") String partyName);
+    Party selectParty(@Param("partyName") String partyName);
 }

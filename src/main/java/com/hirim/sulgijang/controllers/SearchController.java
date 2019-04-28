@@ -21,12 +21,7 @@ public class SearchController {
     }
 
     @GetMapping("/party")
-    public CommonResponse searchParty(@RequestParam(required = false) String partyName, @RequestParam(required = false, defaultValue= "0") long partyId) {
-        return CommonResponse.successObject(partyService.selectParty(partyId, partyName));
-    }
-
-    @GetMapping("/diary")
-    public CommonResponse searchDiary(@RequestParam(required = false) String diaryName, @RequestParam(required = false, defaultValue= "0") long diaryId) {
-        return CommonResponse.successObject(diaryService.selectDiary(diaryId, diaryName));
+    public CommonResponse searchParty(@RequestParam(required = false) String partyName) {
+        return CommonResponse.successObject(partyService.selectParty(partyName));
     }
 }
