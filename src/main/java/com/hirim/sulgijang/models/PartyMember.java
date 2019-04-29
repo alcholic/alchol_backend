@@ -9,15 +9,15 @@ import java.util.List;
 @NoArgsConstructor
 public class PartyMember extends BaseModel {
     private long partyMemberId;
-    private List<User> userList;
+    private User user;
     private long partyId;
 
-    public PartyMember(List<User> usreList) {
-        this.userList = userList;
+    public PartyMember(User user) {
+        this.user = user;
     }
 
-    public PartyMember(List<User> userList, long partyId) {
-        this.userList = userList;
+    public PartyMember(User user, long partyId) {
+        this.user = user;
         this.partyId = partyId;
     }
 }

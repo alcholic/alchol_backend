@@ -46,7 +46,8 @@
     </delete>
 
     <resultMap id="diaryResultMap" type="com.hirim.sulgijang.models.Diary">
-        <id property="diaryId" column="diary_id" />s
+        <id property="diaryId" column="diary_id" />
+        <result property="diaryName" column="diary_name"/>
     </resultMap>
 
     <resultMap id="partyMember" type="com.hirim.sulgijang.models.PartyMember">
@@ -56,11 +57,13 @@
     <resultMap id="diaryParam" type="com.hirim.sulgijang.models.param.PartyParam">
         <id property="partyId" column="party_id"/>
         <result property="partyName" column="party_name"/>
-        <collection property="partyMemberList" resultMap="partyMember"/>
-        <collection property="diaryList" resultMap="diaryResultMap"/>
+        <collection property="partyMemberList" resultMap="partyMember">
+            <result javaType="User"/>
+        </collection>
+        <collection property="diaryList" resultMap="diaryResultMap" />
     </resultMap>
 
-    <select id="selectDiaryListByParty" resultType="diaryParam">
+    <select id="selectDiaryListByParty" resultMap="diaryParam">
         SELECT *
         FROM diary d
         INNER JOIN party p ON p.party_id = d.party_id
@@ -74,7 +77,7 @@
             </if>
     </select>
 
-    <select id="selectDiaryContentList" resultType="DiaryContent">
+    <select id="selectDiaryContentList" resultType="com.hirim.sulgijang.models.DiaryContent">
         SELECT *
         FROM diary_content
         WHERE 1 = 1
