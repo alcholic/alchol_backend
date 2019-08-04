@@ -2,6 +2,7 @@ package com.hirim.sulgijang.services;
 
 import com.hirim.sulgijang.models.Party;
 import com.hirim.sulgijang.models.User;
+import com.hirim.sulgijang.models.param.PartyParam;
 import com.hirim.sulgijang.repositories.PartyRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +38,7 @@ public class PartyService {
        partyRepository.deleteParty(partyId);
        partyRepository.deletePartyMember(partyId);
 
-       diaryService.selectDiaryList(0, partyId, null).stream()
+       diaryService.selectDiaryListByParty(partyId, null).stream()
                 .peek(i -> diaryService.deleteDiary(i.getDiaryId()))
                 .collect(Collectors.toList());
     }
@@ -47,15 +48,12 @@ public class PartyService {
         for(User user : userList) partyRepository.insertPartyMember(partyId, user.getUserId());
     }
 
-    public List<Party> selectPartyByUser(long userId) {
+    public List<PartyParam> selectPartyByUser(long userId) {
         return partyRepository.selectPartyList(userId);
     }
 
-    public Party selectParty(long partyId, String partyName) {
-        return partyRepository.selectParty(partyId, partyName);
+    public Party selectParty(String partyName) {
+        return partyRepository.selectParty(partyName);
     }
 
-    public List<User> selectUserListByParty(long partyId) {
-        return partyRepository.selectMemberList(partyId);
-    }
 }

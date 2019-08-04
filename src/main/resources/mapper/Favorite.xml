@@ -3,7 +3,12 @@
 
 <mapper namespace="com.hirim.sulgijang.repositories.FavoriteRepository">
     <insert id="insertFavoriteParty" keyProperty="favoriteId" useGeneratedKeys="true">
-      INSERT party_favorites(party_id, user_id)
-      VALUES (#{partyId}, #{userId})
+      INSERT party_favorites(party_id, user_id, created_at)
+      VALUES (#{partyId}, #{userId}, SYSDATE())
     </insert>
+
+    <delete id="deleteFavoriteParty">
+        DELETE FROM party_favorites
+        WHERE favorite_id = #{favoriteId}
+    </delete>
 </mapper>

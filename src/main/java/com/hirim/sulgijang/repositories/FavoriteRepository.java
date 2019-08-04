@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FavoriteRepository {
     void insertFavoriteParty(Favorite favorite);
+    void deleteFavoriteParty(long favoriteId);
 }

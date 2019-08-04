@@ -22,6 +22,13 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
+    @GetMapping("/")
+    @ApiOperation(value = "모임별 다이어리 리스트", notes = "partyId, diaryId, privateYn 모두 required false")
+    public CommonResponse searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId,
+                                          @RequestParam(required = false) String privateYn) {
+        return CommonResponse.successObject(diaryService.selectDiaryListByParty(partyId, privateYn));
+    }
+
     @PostMapping("/")
     @ApiOperation(value = "다이어리 저장")
     public CommonResponse saveDiary(HttpServletRequest request, @RequestBody Diary diary){
@@ -47,14 +54,6 @@ public class DiaryController {
     public CommonResponse deleteDiary(@PathVariable long diaryId) {
         diaryService.deleteDiary(diaryId);
         return CommonResponse.success();
-    }
-
-
-    @GetMapping("/")
-    @ApiOperation(value = "모임별 다이어리 리스트", notes = "partyId, diaryId, privateYn 모두 required false")
-    public CommonResponse searchDiaryList(@RequestParam(required = false, defaultValue = "0") long partyId, @RequestParam(required = false, defaultValue = "0") long diaryId,
-                                          @RequestParam(required = false) String privateYn) {
-        return CommonResponse.successObject(diaryService.selectDiaryList(partyId, diaryId, privateYn));
     }
 
     @PostMapping("/contents")

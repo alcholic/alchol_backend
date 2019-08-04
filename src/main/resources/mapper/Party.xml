@@ -35,29 +35,27 @@
         SELECT *
         FROM party p
         WHERE 1 = 1
-        <if test="partyId > 0">
-            AND p.party_id = #{partyId}
-        </if>
         <if test="partyName != null">
             AND p.party_name = #{partyName}
         </if>
     </select>
 
-    <select id="selectPartyList" resultType="com.hirim.sulgijang.models.Party">
+    <resultMap id="partyMember" type="com.hirim.sulgijang.models.PartyMember">
+        <id property="partyMemberId" column="party_member_id" />
+    </resultMap>
+
+    <resultMap id="partyParam" type="com.hirim.sulgijang.models.param.PartyParam">
+        <id property="partyId" column="party_id"/>
+        <result property="partyName" column="party_name"/>
+        <collection property="partyMemberList" resultMap="partyMember"/>
+    </resultMap>
+
+    <select id="selectPartyList" resultMap="partyParam">
       SELECT *
       FROM party p
       INNER JOIN party_member pm ON p.party_id = pm.party_id
-      INNER JOIN party_favorites f ON f.party_id = p.party_id
-      WHERE f.user_id = pm.user_id
-        AND pm.user_id = #{userId}
-      ORDER BY f.favorite_id, p.created_at DESC
-    </select>
-
-    <select id="selectMemberList" resultType="com.hirim.sulgijang.models.User">
-        SELECT *
-        FROM party_member pm
-        INNER JOIN party p ON p.party_id = pm.party_id
-        INNER JOIN user u ON u.user_id = pm.user_id
-        WHERE p.party_id = #{partyId}
+      LEFT JOIN party_favorites f ON f.party_id = p.party_id
+        WHERE pm.user_id = #{userId}
+      ORDER BY f.favorite_id DESC, p.created_at DESC;
     </select>
 </mapper>

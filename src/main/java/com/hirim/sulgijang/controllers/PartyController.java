@@ -6,6 +6,7 @@ import com.hirim.sulgijang.models.PartyMember;
 import com.hirim.sulgijang.models.UserInfo;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.services.PartyService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class PartyController {
     }
 
     @GetMapping("/")
-    @ApiOperation(value="내모임", notes="세션에 등록된 로그인 유저 아이디로 검색")
+    @ApiOperation(value="내모임 리스트", notes="세션에 등록된 로그인 유저 아이디로 검색")
     public CommonResponse searchPartyList(HttpServletRequest request) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
@@ -66,11 +67,5 @@ public class PartyController {
         partyService.insertPartyMember(partyMember.getPartyId(), partyMember.getUserList());
 
         return CommonResponse.success();
-    }
-
-    @GetMapping("/members/user")
-    @ApiOperation(value = "모임별 유저 리스트")
-    public CommonResponse searchUserList(@RequestParam long partyId) {
-        return CommonResponse.successObject(partyService.selectUserListByParty(partyId));
     }
 }

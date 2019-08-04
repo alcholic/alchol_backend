@@ -5,14 +5,12 @@ import com.hirim.sulgijang.models.Favorite;
 import com.hirim.sulgijang.models.UserInfo;
 import com.hirim.sulgijang.models.response.CommonResponse;
 import com.hirim.sulgijang.services.FavoriteService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
+@RestController
 @RequestMapping("/favorites")
 public class FavoriteController {
 
@@ -23,12 +21,20 @@ public class FavoriteController {
     }
 
     @PostMapping("/")
+    @ApiOperation(value = "모임 즐겨찾기 추가")
     public CommonResponse insertFavoriteParty(HttpServletRequest request, @RequestBody Favorite favorite) {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
         favorite.setUserId(0/*userInfo.getUserId()*/);
         favoriteService.insertFavorite(favorite);
 
+        return CommonResponse.success();
+    }
+
+    @DeleteMapping("/{favoriteId}")
+    @ApiOperation(value = "모임 즐겨찾기 삭제")
+    public CommonResponse deleteFavoriteParty(@PathVariable long favoriteId) {
+        favoriteService.deleteFavorite(favoriteId);
         return CommonResponse.success();
     }
 }

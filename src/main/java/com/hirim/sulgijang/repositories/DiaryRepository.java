@@ -17,7 +17,6 @@ public interface DiaryRepository {
     void updateDiaryContent(DiaryContent diaryContent);
     void deleteDiary(long diaryId);
     void deleteDiaryContent(long diaryContentId);
-    List<Diary> selectDiaryList(@Param("partyId") long partyId, @Param("diaryId") long diaryId, @Param("privateYn") String privateYn);
+    List<Diary> selectDiaryListByParty(@Param("partyId") long partyId, @Param("privateYn") String privateYn);
     List<DiaryContent> selectDiaryContentList(@Param("diaryId") long diaryId, @Param("diaryContentId") long diaryContentId);
-    Diary selectDiary(@Param("diaryId") long diaryId, @Param("diaryName") String diaryName);
 }
