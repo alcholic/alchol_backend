@@ -15,7 +15,7 @@
       WHERE comment_id = #{commentId}
     </update>
 
-    <select id="selectCommentList" resultType="Comment">
+    <select id="selectCommentList" resultType="com.hirim.sulgijang.models.Comment">
         SELECT *
         FROM comment
         WHERE diary_id = #{diaryId}

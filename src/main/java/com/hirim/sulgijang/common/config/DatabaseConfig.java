@@ -1,6 +1,9 @@
 package com.hirim.sulgijang.common.config;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +12,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @MapperScan(basePackages = "com.hirim.sulgijang.repositories")
 @Configuration
@@ -54,7 +60,6 @@ public class DatabaseConfig {
         sqlSessionFactoryBean.setDataSource(dataSource());
         sqlSessionFactoryBean.setTypeAliasesPackage("com.hirim.sulgijang.models");
         sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources(mapperLocation));
-
 
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);

@@ -54,28 +54,28 @@
         <id property="partyMemberId" column="party_member_id" />
     </resultMap>
 
-    <resultMap id="diaryParam" type="com.hirim.sulgijang.models.param.PartyParam">
-        <id property="partyId" column="party_id"/>
-        <result property="partyName" column="party_name"/>
-        <collection property="partyMemberList" resultMap="partyMember">
-            <result javaType="User"/>
-        </collection>
-        <collection property="diaryList" resultMap="diaryResultMap" />
-    </resultMap>
+    <!--<resultMap id="diaryParam" type="com.hirim.sulgijang.models.param.PartyParam">-->
+        <!--<id property="partyId" column="party_id"/>-->
+        <!--<result property="partyName" column="party_name"/>-->
+        <!--<collection property="partyMemberList" resultMap="partyMember">-->
+            <!--<result javaType="com.hirim.sulgijang.models.User"/>-->
+        <!--</collection>-->
+        <!--<collection property="diaryList" resultMap="diaryResultMap" />-->
+    <!--</resultMap>-->
 
-    <select id="selectDiaryListByParty" resultMap="diaryParam">
-        SELECT *
-        FROM diary d
-        INNER JOIN party p ON p.party_id = d.party_id
-        INNER JOIN party_member pm ON d.party_id = pm.party_id
-        WHERE 1 = 1
-            <if test="partyId > 0">
-                AND d.party_id = #{partyId}
-            </if>
-            <if test="privateYn != null">
-                AND d.private_yn = #{privateYn}
-            </if>
-    </select>
+    <!--<select id="selectDiaryListByParty" resultMap="diaryParam">-->
+        <!--SELECT *-->
+        <!--FROM diary d-->
+        <!--INNER JOIN party p ON p.party_id = d.party_id-->
+        <!--INNER JOIN party_member pm ON d.party_id = pm.party_id-->
+        <!--WHERE 1 = 1-->
+            <!--<if test="partyId > 0">-->
+                <!--AND d.party_id = #{partyId}-->
+            <!--</if>-->
+            <!--<if test="privateYn != null">-->
+                <!--AND d.private_yn = #{privateYn}-->
+            <!--</if>-->
+    <!--</select>-->
 
     <select id="selectDiaryContentList" resultType="com.hirim.sulgijang.models.DiaryContent">
         SELECT *

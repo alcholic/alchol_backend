@@ -64,7 +64,7 @@ public class PartyController {
         UserInfo userInfo = UserSessionHelper.getUserInfo(request);
 
         partyMember.setCreatedBy(0 /*userInfo.getUserId()*/);
-        partyService.insertPartyMember(partyMember.getPartyId(), partyMember.getUserList());
+//        partyService.insertPartyMember(partyMember.getPartyId(), partyMember.getUserList());
 
         return CommonResponse.success();
     }
